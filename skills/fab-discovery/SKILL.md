@@ -18,10 +18,11 @@ Use this skill for exploration and orientation in Fabric with `fab`. It helps ma
 
 ## Default Workflow
 
-1. Start with `fab pwd`, `fab dir`, and `fab get` to understand the current context.
-2. Use `fab desc` on a dot element or path to discover supported commands.
-3. Narrow output with `fab get <path> -q <jmespath>` when large property payloads are noisy.
-4. Only move to mutating commands after the path and object type are clear.
+1. Start with `fab pwd` and `fab dir` to understand the current context.
+2. Resolve the exact workspace or item path from `fab dir` output before using `fab get` or deeper listing commands.
+3. Use `fab desc` on a dot element or resolved path to discover supported commands.
+4. Narrow output with `fab get <path> -q <jmespath>` when large property payloads are noisy.
+5. Only move to mutating commands after the path and object type are clear.
 
 ## Command Patterns
 
@@ -35,31 +36,48 @@ List workspaces or child items:
 
 ```powershell
 fab dir
-fab dir "ws.Workspace" -l
+fab dir "Analytics Dev.Workspace" -l
 ```
 
 Inspect properties:
 
 ```powershell
-fab get "ws.Workspace/item.Notebook"
+fab get "Analytics Dev.Workspace"
+fab get "Analytics Dev.Workspace/nb_silver_projects.Notebook"
 ```
 
 See supported commands:
 
 ```powershell
 fab desc ".notebook"
-fab desc "ws.Workspace/item.Notebook"
+fab desc "Analytics Dev.Workspace/nb_silver_projects.Notebook"
 ```
 
 Query only the needed fields from a resolved object:
 
 ```powershell
-fab get "ws.Workspace/item.Notebook" -q "{displayName: displayName, type: type}"
+fab get "Analytics Dev.Workspace/nb_silver_projects.Notebook" -q "{displayName: displayName, type: type}"
+```
+
+## Path Resolution Tips
+
+- Prefer the exact path token emitted by `fab dir`, including suffixes such as `.Workspace`, `.Notebook`, or `.Lakehouse`.
+- If a shorthand path such as `ws.<name>` fails with `InvalidPath`, fall back to the literal value returned by `fab dir`.
+- Path syntax can vary across `fab` versions, so treat `fab dir` output as the source of truth.
+
+Example:
+
+```powershell
+fab dir
+fab get "Analytics Dev.Workspace"
+fab dir "Analytics Dev.Workspace"
+fab dir "Analytics Dev.Workspace" -l
 ```
 
 ## Guardrails
 
 - Prefer discovery commands before mutating commands.
+- Prefer exact paths copied from `fab dir` output over inferred path prefixes.
 - Use `fab dir` for listing and `fab get -q` for filtering JSON properties.
 - If an object type is uncertain, use `desc` rather than guessing the command family.
 - Keep summaries short and structured when the listing is large.
