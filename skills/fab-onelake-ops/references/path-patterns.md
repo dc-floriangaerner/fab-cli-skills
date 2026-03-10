@@ -7,11 +7,9 @@ Use this reference when the user needs repeatable filesystem-style Fabric operat
 - Workspace item: `ws.Workspace/item.Notebook`
 - Lakehouse files root: `ws.Workspace/lh.Lakehouse/Files`
 - Lakehouse tables root: `ws.Workspace/lh.Lakehouse/Tables`
+- Lakehouse schema path: `ws.Workspace/lh.Lakehouse/Tables/silver`
+- Lakehouse Delta table path: `ws.Workspace/lh.Lakehouse/Tables/silver/customers`
 - Warehouse table path: `wh.Warehouse/Tables/dbo/table_name`
-
-In live testing:
-- `Test123.Workspace/lakehouse.Lakehouse/Files` was empty
-- `Test123.Workspace/lakehouse.Lakehouse/Tables` contained `dbo`
 
 ## Safe File Workflow
 
@@ -44,5 +42,6 @@ python scripts/check_paths.py .\paths.json
 
 - Use `copy` when you want safer testing.
 - Treat `move` and `del` as destructive.
+- Check both `/Files` and `/Tables` when discovering a Lakehouse; empty `Files` does not mean the Lakehouse is empty.
 - For tables, prefer `fab table schema` over generic file inspection.
 - `mkdir` supports Lakehouse directories under `/Files`.

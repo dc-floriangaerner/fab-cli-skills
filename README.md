@@ -42,16 +42,16 @@ You do not need to understand how skills work internally. Install them once, the
 Windows:
 
 ```powershell
-git clone <your-repo-url> C:\DEV\fab-cli-skills
-cd C:\DEV\fab-cli-skills
+git clone <your-repo-url> fab-cli-skills
+cd fab-cli-skills
 .\scripts\install.ps1
 ```
 
 macOS:
 
 ```bash
-git clone <your-repo-url> ~/DEV/fab-cli-skills
-cd ~/DEV/fab-cli-skills
+git clone <your-repo-url> fab-cli-skills
+cd fab-cli-skills
 bash ./scripts/install.sh
 ```
 
@@ -60,16 +60,16 @@ bash ./scripts/install.sh
 Windows:
 
 ```powershell
-git clone <your-repo-url> C:\DEV\fab-cli-skills
-cd C:\DEV\fab-cli-skills
+git clone <your-repo-url> fab-cli-skills
+cd fab-cli-skills
 .\scripts\install-copilot.ps1
 ```
 
 macOS:
 
 ```bash
-git clone <your-repo-url> ~/DEV/fab-cli-skills
-cd ~/DEV/fab-cli-skills
+git clone <your-repo-url> fab-cli-skills
+cd fab-cli-skills
 bash ./scripts/install-copilot.sh
 ```
 
@@ -131,7 +131,7 @@ Use the /fab-deploy skill to promote a notebook from Analytics Dev to Test123.
 
 Copy-paste examples for common tasks live here:
 
-- [Prompt Cookbook](C:/DEV/fab-cli-skills/docs/prompt-cookbook.md)
+- [Prompt Cookbook](docs/prompt-cookbook.md)
 
 Recommended first prompts:
 
@@ -171,14 +171,14 @@ For GitHub Copilot, use the corresponding `install-copilot` script instead.
 
 ### Codex
 
-- Windows: `%USERPROFILE%\.codex\skills`
-- macOS: `~/.codex/skills`
-- If `CODEX_HOME` is set: `$CODEX_HOME/skills`
+- Windows: `.codex\skills` under your user profile
+- macOS: `.codex/skills` under your home directory
+- If `CODEX_HOME` is set: `skills` under `CODEX_HOME`
 
 ### GitHub Copilot
 
-- Windows: `%USERPROFILE%\.copilot\skills`
-- macOS: `~/.copilot/skills`
+- Windows: `.copilot\skills` under your user profile
+- macOS: `.copilot/skills` under your home directory
 
 The install scripts copy the skills from this repo into the correct local skills directory.
 

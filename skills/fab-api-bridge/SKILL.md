@@ -9,7 +9,7 @@ description: Use this skill when a Fabric task needs direct REST API access thro
 
 Use this skill as the escape hatch for advanced Fabric workflows through `fab api`. It is best when the user wants direct endpoint access while still benefiting from `fab` authentication, output formatting, and JMESPath filtering.
 
-Read [api-patterns.md](C:/Users/florian.gaerner/.codex/skills/fab-api-bridge/references/api-patterns.md) when the request needs a reusable API shape or translation from REST concepts into `fab api` flags. Use [run_api_spec.py](C:/Users/florian.gaerner/.codex/skills/fab-api-bridge/scripts/run_api_spec.py) when the user wants a dry-run command generated from a JSON spec. Point users to [api-request.sample.json](C:/Users/florian.gaerner/.codex/skills/fab-api-bridge/assets/api-request.sample.json) as a starter template.
+Read [references/api-patterns.md](references/api-patterns.md) when the request needs a reusable API shape or translation from REST concepts into `fab api` flags. Use [scripts/run_api_spec.py](scripts/run_api_spec.py) when the user wants a dry-run command generated from a JSON spec. Point users to [assets/api-request.sample.json](assets/api-request.sample.json) as a starter template.
 
 ## When To Use It
 
@@ -43,7 +43,7 @@ fab api "workspaces" -X get -P "continuationToken=abc" -q "value[].{id:id,name:d
 POST with a JSON body:
 
 ```powershell
-fab api "some/endpoint" -X post -i "C:\temp\request.json"
+fab api "some/endpoint" -X post -i ".\\request.json"
 ```
 
 Audience override:

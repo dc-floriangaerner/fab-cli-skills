@@ -30,7 +30,7 @@ If the user needs a repeatable list of commands for multiple items, use:
 python scripts/render_manifest.py .\deploy-manifest.json
 ```
 
-There is a starter manifest at [deploy-manifest.sample.json](C:/Users/florian.gaerner/.codex/skills/fab-deploy/assets/deploy-manifest.sample.json).
+There is a starter manifest at [../assets/deploy-manifest.sample.json](../assets/deploy-manifest.sample.json).
 
 The manifest helper emits:
 - `fab exists` for the destination

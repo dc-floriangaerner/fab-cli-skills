@@ -9,8 +9,8 @@ description: Use this skill to bootstrap Fabric CLI for users who do not already
 
 Use this skill for first-time `fab` setup on Windows and macOS in user-auth mode. It handles install or upgrade, persistent PATH updates, version verification, auth status checks, and interactive login handoff when `fab auth login` cannot run inside the current terminal host.
 
-Read [install-auth.md](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/references/install-auth.md) for the setup flow and caveats. Use [bootstrap_fab.py](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/scripts/bootstrap_fab.py) to automate install, PATH setup, verification, and interactive login.
-Use [repair_fab_path.py](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/scripts/repair_fab_path.py) when `fab` is already installed and the only issue is persistent PATH configuration.
+Read [references/install-auth.md](references/install-auth.md) for the setup flow and caveats. Use [scripts/bootstrap_fab.py](scripts/bootstrap_fab.py) to automate install, PATH setup, verification, and interactive login.
+Use [scripts/repair_fab_path.py](scripts/repair_fab_path.py) when `fab` is already installed and the only issue is persistent PATH configuration.
 
 ## When To Use It
 
@@ -37,6 +37,12 @@ Bootstrap everything, including login when the current terminal host supports it
 python scripts/bootstrap_fab.py --login
 ```
 
+Windows launcher fallback if `python` is not mapped:
+
+```powershell
+py -3 scripts/bootstrap_fab.py --login
+```
+
 Verify only:
 
 ```powershell
@@ -47,6 +53,12 @@ Skip persistent PATH updates:
 
 ```powershell
 python scripts/bootstrap_fab.py --no-path --login
+```
+
+Preview actions without applying changes:
+
+```powershell
+python scripts/bootstrap_fab.py --login --dry-run
 ```
 
 Repair PATH only:
@@ -62,6 +74,7 @@ python scripts/repair_fab_path.py
 - Expect `fab auth login` to require browser interaction even when the setup steps are automated.
 - On Windows, be explicit that embedded terminals may fail to launch the interactive login flow cleanly. If that happens, direct the user to run the printed login command in a regular PowerShell, Windows Terminal, or `cmd.exe` session.
 - If `fab auth status` shows encoding problems, retry with `PYTHONIOENCODING=utf-8` and `PYTHONUTF8=1`.
+- If `python -m pip` is unavailable, retry with the Windows launcher (`py -3`) or ensure Python is installed for the current user.
 - Tell the user that a new shell may be needed before plain `fab` resolves everywhere.
 
 ## Output Expectations

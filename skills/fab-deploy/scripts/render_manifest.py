@@ -4,7 +4,7 @@ Render a simple deployment manifest into ordered fab-cli commands.
 
 Example manifest:
 {
-  "stagingRoot": "C:\\temp\\fab-deploy",
+    "stagingRoot": "staging/fab-deploy",
   "items": [
     {
       "source": "dev.Workspace/nb1.Notebook",
@@ -27,7 +27,7 @@ def quote(value: str) -> str:
 
 
 def render_commands(manifest: dict) -> list[str]:
-    staging_root = manifest.get("stagingRoot", "C:\\temp\\fab-deploy")
+    staging_root = manifest.get("stagingRoot", "staging/fab-deploy")
     items = manifest.get("items", [])
     if not items:
         raise ValueError("Manifest must include at least one item in 'items'.")

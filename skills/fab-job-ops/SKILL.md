@@ -9,9 +9,9 @@ description: Use this skill for running, scheduling, monitoring, and troubleshoo
 
 Use this skill when the user wants Codex to operate Fabric jobs end to end with `fab job`. It covers synchronous runs, asynchronous starts, polling, schedule changes, cancellations, and concise run summaries.
 
-Read [references/job-runbook.md](C:/Users/florian.gaerner/.codex/skills/fab-job-ops/references/job-runbook.md) for runbook-style troubleshooting and scheduling work. Use [scripts/poll_run.py](C:/Users/florian.gaerner/.codex/skills/fab-job-ops/scripts/poll_run.py) when the user needs repeated status polling with a timeout.
+Read [references/job-runbook.md](references/job-runbook.md) for runbook-style troubleshooting and scheduling work. Use [scripts/poll_run.py](scripts/poll_run.py) when the user needs repeated status polling with a timeout.
 
-Use [scripts/poll_latest_run.py](C:/Users/florian.gaerner/.codex/skills/fab-job-ops/scripts/poll_latest_run.py) when the user wants "watch the latest run" and does not have an ID ready.
+Use [scripts/poll_latest_run.py](scripts/poll_latest_run.py) when the user wants "watch the latest run" and does not have an ID ready.
 
 ## When To Use It
 

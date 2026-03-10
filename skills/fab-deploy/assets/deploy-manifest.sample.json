@@ -1,5 +1,5 @@
 {
-  "stagingRoot": "C:\\temp\\fab-deploy",
+  "stagingRoot": "staging/fab-deploy",
   "items": [
     {
       "source": "dev.Workspace/nb-sales.Notebook",
@@ -9,7 +9,7 @@
     {
       "source": "dev.Workspace/pl-refresh.DataPipeline",
       "destination": "test.Workspace/pl-refresh.DataPipeline",
-      "artifactDir": "C:\\temp\\fab-deploy\\02-pl-refresh",
+      "artifactDir": "staging/fab-deploy/02-pl-refresh",
       "forceExport": true,
       "forceImport": true
     }

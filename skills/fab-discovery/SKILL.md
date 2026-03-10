@@ -20,7 +20,7 @@ Use this skill for exploration and orientation in Fabric with `fab`. It helps ma
 
 1. Start with `fab pwd`, `fab dir`, and `fab get` to understand the current context.
 2. Use `fab desc` on a dot element or path to discover supported commands.
-3. Narrow output with `-q` queries when large listings are noisy.
+3. Narrow output with `fab get <path> -q <jmespath>` when large property payloads are noisy.
 4. Only move to mutating commands after the path and object type are clear.
 
 ## Command Patterns
@@ -51,20 +51,55 @@ fab desc ".notebook"
 fab desc "ws.Workspace/item.Notebook"
 ```
 
-Query only the needed fields:
+Query only the needed fields from a resolved object:
 
 ```powershell
-fab dir -q "[].name"
+fab get "ws.Workspace/item.Notebook" -q "{displayName: displayName, type: type}"
 ```
 
 ## Guardrails
 
 - Prefer discovery commands before mutating commands.
+- Use `fab dir` for listing and `fab get -q` for filtering JSON properties.
 - If an object type is uncertain, use `desc` rather than guessing the command family.
 - Keep summaries short and structured when the listing is large.
+- For workspace overview requests, prefer a compact visual structure over a plain bullet-only inventory.
 
 ## Output Expectations
 
 - Explain the discovered structure in plain language.
 - Include the path or item type you resolved.
+- When the user asks for a workspace overview, present the result in a more visual format such as:
+  - a short type summary table with counts
+  - a compact tree-like listing grouped by item type or layer
+  - a short "shape of the workspace" section before the detailed inventory
+- Use bullets as a fallback, not the default, for workspace overviews.
 - Call out which command families appear relevant next.
+
+## Workspace Overview Format
+
+When the user asks what is inside a workspace, prefer this response shape:
+
+1. A one-line summary of the workspace shape, such as "1 Lakehouse, 1 SQL Endpoint, 1 Pipeline, 9 Notebooks".
+2. A compact visual grouping, such as a Markdown table or tree grouped by item type.
+3. Optional short notes about naming patterns, layers, or likely data flow.
+4. Suggested next inspection commands or areas only if helpful.
+
+Example format:
+
+```text
+Workspace shape
+1 Lakehouse | 1 SQL Endpoint | 1 Pipeline | 9 Notebooks
+
+Items
+Lakehouse
+- lakehouse
+
+DataPipeline
+- pl-main
+
+Notebook
+- nb_bronze_load_moco_endpoints
+- nb_silver_customers
+- nb_silver_projects
+```

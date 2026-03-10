@@ -9,9 +9,9 @@ description: Use this skill for Fabric item promotion and deployment with fab-cl
 
 Use this skill when the task is to promote Fabric items between environments with `fab`. It is optimized for export or import flows, overwrite decisions, path validation, and post-deploy verification.
 
-Read [references/deploy-patterns.md](C:/Users/florian.gaerner/.codex/skills/fab-deploy/references/deploy-patterns.md) when the deployment spans multiple items or needs a repeatable promotion plan. Use [scripts/render_manifest.py](C:/Users/florian.gaerner/.codex/skills/fab-deploy/scripts/render_manifest.py) when the user wants a manifest-driven command list.
+Read [references/deploy-patterns.md](references/deploy-patterns.md) when the deployment spans multiple items or needs a repeatable promotion plan. Use [scripts/render_manifest.py](scripts/render_manifest.py) when the user wants a manifest-driven command list.
 
-Point users to [deploy-manifest.sample.json](C:/Users/florian.gaerner/.codex/skills/fab-deploy/assets/deploy-manifest.sample.json) when they need a starting template.
+Point users to [assets/deploy-manifest.sample.json](assets/deploy-manifest.sample.json) when they need a starting template.
 
 ## When To Use It
 
@@ -39,19 +39,19 @@ fab exists "target-ws.Workspace/item.Notebook"
 Export an item to a local directory:
 
 ```powershell
-fab export "source-ws.Workspace/item.Notebook" -i "C:\temp\item.Notebook"
+fab export "source-ws.Workspace/item.Notebook" -i ".\\staging\\item.Notebook"
 ```
 
 Import an item into a workspace:
 
 ```powershell
-fab import "target-ws.Workspace/item.Notebook" -i "C:\temp\item.Notebook"
+fab import "target-ws.Workspace/item.Notebook" -i ".\\staging\\item.Notebook"
 ```
 
 Force an update only after confirming intent:
 
 ```powershell
-fab import "target-ws.Workspace/item.Notebook" -i "C:\temp\item.Notebook" -f
+fab import "target-ws.Workspace/item.Notebook" -i ".\\staging\\item.Notebook" -f
 ```
 
 Render commands from a deployment manifest:

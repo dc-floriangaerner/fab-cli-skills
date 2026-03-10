@@ -9,7 +9,7 @@ description: Use this skill for inspecting, comparing, and changing Fabric acces
 
 Use this skill when the user needs to understand or modify who has access to a Fabric resource through `fab acl`. It emphasizes read-first investigation, precise permission changes, and clear before or after comparisons.
 
-Read [acl-patterns.md](C:/Users/florian.gaerner/.codex/skills/fab-acl-audit/references/acl-patterns.md) when the task needs a reusable ACL workflow. Use [render_acl_spec.py](C:/Users/florian.gaerner/.codex/skills/fab-acl-audit/scripts/render_acl_spec.py) when the user wants a dry-run ACL command generated from a JSON spec. Point users to [acl-request.sample.json](C:/Users/florian.gaerner/.codex/skills/fab-acl-audit/assets/acl-request.sample.json) as a starter template.
+Read [references/acl-patterns.md](references/acl-patterns.md) when the task needs a reusable ACL workflow. Use [scripts/render_acl_spec.py](scripts/render_acl_spec.py) when the user wants a dry-run ACL command generated from a JSON spec. Point users to [assets/acl-request.sample.json](assets/acl-request.sample.json) as a starter template.
 
 ## When To Use It
 
