@@ -1,0 +1,26 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Python cache and virtual envs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Local test and temp output
+tmp/
+temp/
+*.tmp
+
+# Generated archives
+*.zip
+*.tar
+*.gz

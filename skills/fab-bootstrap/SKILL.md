@@ -1,0 +1,68 @@
+---
+name: fab-bootstrap
+description: Use this skill to bootstrap Fabric CLI for users who do not already have fab-cli installed, especially on Windows or macOS when the task includes pip install, persistent PATH setup, version verification, and interactive user-auth login.
+---
+
+# Fab Bootstrap
+
+## Overview
+
+Use this skill for first-time `fab` setup on Windows and macOS in user-auth mode. It handles install or upgrade, persistent PATH updates, version verification, auth status checks, and launching `fab auth login`.
+
+Read [install-auth.md](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/references/install-auth.md) for the setup flow and caveats. Use [bootstrap_fab.py](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/scripts/bootstrap_fab.py) to automate install, PATH setup, verification, and interactive login.
+Use [repair_fab_path.py](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/scripts/repair_fab_path.py) when `fab` is already installed and the only issue is persistent PATH configuration.
+
+## When To Use It
+
+- User does not have `fab` installed yet.
+- `fab` is installed but not on `PATH`.
+- The user wants Codex to set up Fabric CLI end to end in user-auth mode.
+- The user is on Windows or macOS and wants a repeatable bootstrap flow.
+
+## Default Workflow
+
+1. Detect the OS and the user-level Python script directory.
+2. Install or upgrade `ms-fabric-cli` with `pip --user`.
+3. Add the user-level script directory to the user's persistent PATH automatically.
+4. Verify `fab --version`.
+5. Check `fab auth status`.
+6. If requested and not already logged in, launch `fab auth login`.
+
+## Command Patterns
+
+Bootstrap everything, including login:
+
+```powershell
+python scripts/bootstrap_fab.py --login
+```
+
+Verify only:
+
+```powershell
+python scripts/bootstrap_fab.py --verify-only
+```
+
+Skip persistent PATH updates:
+
+```powershell
+python scripts/bootstrap_fab.py --no-path --login
+```
+
+Repair PATH only:
+
+```powershell
+python scripts/repair_fab_path.py
+```
+
+## Guardrails
+
+- Prefer user-level install so admin rights are not required.
+- Treat PATH updates as persistent user-environment changes and say so clearly.
+- Expect `fab auth login` to require browser interaction even when the setup steps are automated.
+- Tell the user that a new shell may be needed before plain `fab` resolves everywhere.
+
+## Output Expectations
+
+- Show the detected script directory and whether it was added to PATH.
+- Show the resolved `fab` executable and version.
+- Report whether the user is already logged in or whether interactive login was launched.
