@@ -92,6 +92,7 @@ bash ./scripts/install-copilot.sh
 | `fab-api-bridge` | Use `fab api` for direct REST workflows |
 | `fab-acl-audit` | Inspect access and prepare safe ACL changes |
 | `fab-onelake-ops` | Work with OneLake files, folders, tables, and paths |
+| `fab-workspace-organize` | Create folders, clean up legacy items, and organize workspace layouts safely |
 
 ---
 
