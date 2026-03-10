@@ -1,18 +1,31 @@
 # Prompt Cookbook
 
-Copy, paste, and adapt these prompts when working with Fabric in Codex or GitHub Copilot.
+<p align="center">
+  <strong>Copy-paste prompt examples for common Fabric tasks</strong>
+</p>
 
-## How To Read This Page
-
-- For Codex, use `$skill-name`
-- For GitHub Copilot, use `/skill-name`
-- Replace workspace names, item names, and paths with your own
+<p align="center">
+  Use these prompts as starting points in Codex or GitHub Copilot.
+</p>
 
 ---
 
-## 1. First-Time Setup
+## Before You Start
 
-### Install Fabric CLI and log in
+- In Codex, use `$skill-name`
+- In GitHub Copilot, use `/skill-name`
+- Replace workspace names, item names, table names, and paths with your own
+
+Example:
+
+- Codex: `$fab-job-ops`
+- Copilot: `/fab-job-ops`
+
+---
+
+## Setup
+
+### Install Fabric CLI and sign in
 
 Codex:
 
@@ -26,7 +39,7 @@ Copilot:
 Use the /fab-bootstrap skill to install Fabric CLI, fix PATH if needed, and help me log in with user auth.
 ```
 
-### Only repair PATH for an existing install
+### Repair PATH for an existing install
 
 Codex:
 
@@ -42,9 +55,9 @@ Use the /fab-bootstrap skill to check my current fab installation and repair PAT
 
 ---
 
-## 2. Explore A Workspace
+## Discovery
 
-### See what is inside a workspace
+### Inspect a workspace
 
 Codex:
 
@@ -58,7 +71,7 @@ Copilot:
 Use the /fab-discovery skill to inspect Analytics Dev.Workspace and summarize the items I can work with.
 ```
 
-### Find out which commands are supported for one item
+### Check which commands are relevant for an item
 
 Codex:
 
@@ -74,7 +87,7 @@ Use the /fab-discovery skill to inspect Test123.Workspace/nb_silver_customers.No
 
 ---
 
-## 3. Deploy A Fabric Item
+## Deployments
 
 ### Promote a notebook into Test
 
@@ -106,9 +119,9 @@ Use the /fab-deploy skill to turn this deployment manifest into fab commands and
 
 ---
 
-## 4. Run Or Inspect Jobs
+## Jobs
 
-### Check the latest pipeline runs
+### Inspect recent pipeline runs
 
 Codex:
 
@@ -138,7 +151,7 @@ Use the /fab-job-ops skill to start Test123.Workspace/nb_silver_customers.Notebo
 
 ---
 
-## 5. Work With OneLake Paths
+## OneLake
 
 ### Check whether a set of paths exists
 
@@ -170,9 +183,9 @@ Use the /fab-onelake-ops skill to inspect Test123.Workspace/lakehouse.Lakehouse/
 
 ---
 
-## 6. Use Direct Fabric APIs
+## APIs
 
-### Call a Fabric API endpoint safely
+### Inspect a Fabric API response safely
 
 Codex:
 
@@ -202,9 +215,9 @@ Use the /fab-api-bridge skill to create a JSON request spec for this Fabric API 
 
 ---
 
-## 7. Check Permissions
+## Permissions
 
-### Inspect access on a workspace
+### Inspect workspace access
 
 Codex:
 
@@ -218,7 +231,7 @@ Copilot:
 Use the /fab-acl-audit skill to inspect the ACLs on Test123.Workspace and summarize who has which role.
 ```
 
-### Plan a safe permission change
+### Prepare a safe permission change
 
 Codex:
 
@@ -234,9 +247,9 @@ Use the /fab-acl-audit skill to inspect the current ACLs, then render the comman
 
 ---
 
-## 8. Good Habits
+## Simple Rules That Help
 
-- Start with discovery if you are unsure about paths.
+- Start with discovery if you are unsure about a path or item.
 - Ask for a dry run before copy, move, delete, import, or ACL changes.
 - For API work, inspect one raw response before writing a query.
-- For job work, ask for a summary of the latest runs before restarting failed workloads.
+- For job work, look at recent runs before restarting workloads.

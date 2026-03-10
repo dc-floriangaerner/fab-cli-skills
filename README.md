@@ -1,58 +1,45 @@
-# Fabric CLI Skills Pack
+# Fabric Skills Pack
 
 <p align="center">
-  <strong>Fabric workflows for Codex, packaged for data engineers.</strong>
+  <strong>Practical Microsoft Fabric skills for Codex and GitHub Copilot</strong>
 </p>
 
 <p align="center">
-  Install once, then ask Codex to help with Fabric jobs, deployments, OneLake paths, ACLs, APIs, and first-time setup.
+  Built for data engineers working with <code>fab</code>, jobs, deployments, OneLake, ACLs, and Fabric APIs.
+</p>
+
+<p align="center">
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#skills">Skills</a> ·
+  <a href="#how-to-use">How To Use</a> ·
+  <a href="#prompt-cookbook">Prompt Cookbook</a>
 </p>
 
 ---
 
-## Why This Repo Exists
+## What This Is
 
-This repository packages a set of reusable Codex skills for day-to-day work with `fab` and Microsoft Fabric.
+This repo contains reusable Fabric-focused skills for AI coding assistants.
 
-You do **not** need to know anything about agentic programming to use them.
+They make common Fabric tasks easier to delegate in plain English, for example:
 
-Think of these skills as:
+- install and set up `fab`
+- inspect workspaces and items
+- deploy notebooks or pipelines
+- run and monitor jobs
+- work with OneLake paths
+- call Fabric REST APIs
+- inspect or plan ACL changes
 
-- small task-specific playbooks Codex can follow
-- built-in helper scripts for repetitive Fabric work
-- a way to make Codex more reliable on Fabric tasks
-
-If a teammate says:
-
-- "Deploy this notebook to Test"
-- "Run this pipeline and tell me if it failed"
-- "Call this Fabric REST endpoint"
-- "Check these OneLake paths"
-- "Install fab-cli on my laptop"
-
-these skills help Codex do the right thing faster and with better guardrails.
-
----
-
-## What You Get
-
-| Skill | What it helps with |
-| --- | --- |
-| `fab-bootstrap` | Install `fab`, repair PATH, verify setup, launch user login |
-| `fab-discovery` | Explore workspaces, items, and supported commands |
-| `fab-deploy` | Export/import items and promote across environments |
-| `fab-job-ops` | Start jobs, poll runs, inspect failures, check schedules |
-| `fab-api-bridge` | Use `fab api` for direct REST calls |
-| `fab-acl-audit` | Inspect and manage access control safely |
-| `fab-onelake-ops` | Work with OneLake paths, files, folders, and tables |
+You do not need to understand how skills work internally. Install them once, then use them in prompts.
 
 ---
 
 ## Quick Start
 
-### Windows
+### Codex
 
-From PowerShell:
+Windows:
 
 ```powershell
 git clone <your-repo-url> C:\DEV\fab-cli-skills
@@ -60,9 +47,17 @@ cd C:\DEV\fab-cli-skills
 .\scripts\install.ps1
 ```
 
-### Windows For GitHub Copilot
+macOS:
 
-From PowerShell:
+```bash
+git clone <your-repo-url> ~/DEV/fab-cli-skills
+cd ~/DEV/fab-cli-skills
+bash ./scripts/install.sh
+```
+
+### GitHub Copilot
+
+Windows:
 
 ```powershell
 git clone <your-repo-url> C:\DEV\fab-cli-skills
@@ -70,19 +65,7 @@ cd C:\DEV\fab-cli-skills
 .\scripts\install-copilot.ps1
 ```
 
-### macOS
-
-From Terminal:
-
-```bash
-git clone <your-repo-url> ~/DEV/fab-cli-skills
-cd ~/DEV/fab-cli-skills
-bash ./scripts/install.sh
-```
-
-### macOS For GitHub Copilot
-
-From Terminal:
+macOS:
 
 ```bash
 git clone <your-repo-url> ~/DEV/fab-cli-skills
@@ -90,202 +73,131 @@ cd ~/DEV/fab-cli-skills
 bash ./scripts/install-copilot.sh
 ```
 
-After install:
+### After Install
 
-1. Restart Codex if it is already open.
+1. Restart Codex or Copilot if it is already open.
 2. Start a new chat.
 3. Ask for a Fabric task in plain English.
 
-Example prompts:
+---
 
-```text
-Use $fab-bootstrap to install Fabric CLI and set up user login on this machine.
-```
+## Skills
 
-```text
-Use $fab-deploy to promote a notebook from Analytics Dev to Test123.
-```
-
-```text
-Use $fab-job-ops to check the latest run of pl-main.DataPipeline and summarize failures.
-```
-
-```text
-Use $fab-onelake-ops to check whether these paths exist and tell me what is missing.
-```
-
-For GitHub Copilot, use `/fab-...` instead of `$fab-...`.
-
-Example:
-
-```text
-Use the /fab-job-ops skill to check the latest pipeline run and summarize failures.
-```
+| Skill | Purpose |
+| --- | --- |
+| `fab-bootstrap` | Install `fab`, repair PATH, verify setup, launch user login |
+| `fab-discovery` | Explore workspaces, items, paths, and supported commands |
+| `fab-deploy` | Export, import, and promote Fabric items safely |
+| `fab-job-ops` | Start jobs, inspect runs, poll status, summarize failures |
+| `fab-api-bridge` | Use `fab api` for direct REST workflows |
+| `fab-acl-audit` | Inspect access and prepare safe ACL changes |
+| `fab-onelake-ops` | Work with OneLake files, folders, tables, and paths |
 
 ---
 
-## Codex vs Copilot
+## How To Use
 
-Both can use this repo.
+### In Codex
 
-### Codex
+Use `$skill-name` in your prompt.
 
-- install target: `~/.codex/skills`
-- prompt style: `$fab-deploy`
-- install scripts:
-  - [install.ps1](C:/DEV/fab-cli-skills/scripts/install.ps1)
-  - [install.sh](C:/DEV/fab-cli-skills/scripts/install.sh)
+Examples:
 
-### GitHub Copilot
+```text
+Use $fab-bootstrap to install Fabric CLI and help me log in with user auth.
+```
 
-- install target: `~/.copilot/skills`
-- prompt style: `/fab-deploy`
-- install scripts:
-  - [install-copilot.ps1](C:/DEV/fab-cli-skills/scripts/install-copilot.ps1)
-  - [install-copilot.sh](C:/DEV/fab-cli-skills/scripts/install-copilot.sh)
+```text
+Use $fab-job-ops to inspect the latest run of pl-main.DataPipeline and summarize failures.
+```
 
-If a teammate uses both tools, they can install the repo into both locations.
+### In GitHub Copilot
 
-## How Installation Works
+Use `/skill-name` in your prompt.
 
-The install scripts copy the skill folders from this repo into a local skills directory:
+Examples:
 
-- Windows: `%USERPROFILE%\.codex\skills`
-- macOS: `~/.codex/skills`
-- If `CODEX_HOME` is set, it installs into `$CODEX_HOME/skills`
+```text
+Use the /fab-bootstrap skill to install Fabric CLI and help me log in with user auth.
+```
 
-For GitHub Copilot, the install target is:
-
-- Windows: `%USERPROFILE%\.copilot\skills`
-- macOS: `~/.copilot/skills`
-
-It does **not** install Fabric CLI itself.
-
-That is handled by the `fab-bootstrap` skill when needed.
+```text
+Use the /fab-deploy skill to promote a notebook from Analytics Dev to Test123.
+```
 
 ---
-
-## Easiest Way To Use It
-
-Your teammates do not need to browse the skill files manually.
-
-They just need to:
-
-1. install the skill pack
-2. restart Codex
-3. mention the skill in a prompt with `$skill-name` in Codex or `/skill-name` in Copilot
-
-Examples for Codex:
-
-- `$fab-bootstrap`
-- `$fab-deploy`
-- `$fab-job-ops`
-- `$fab-api-bridge`
-
-Examples for Copilot:
-
-- `/fab-bootstrap`
-- `/fab-deploy`
-- `/fab-job-ops`
-- `/fab-api-bridge`
-
-The assistant will then load the right instructions and helper scripts for that task.
-
----
-
-## Recommended Team Rollout
-
-If you want this to be easy for colleagues, the best approach is:
-
-1. Keep this repo in source control.
-2. Ask teammates to clone it locally.
-3. Have them run the install script once.
-4. Point them to the example prompts above.
-
-This is better than sharing individual files ad hoc because:
-
-- everyone gets the same skill versions
-- updates are easy with `git pull`
-- helper scripts and references stay together
-- onboarding stays simple
 
 ## Prompt Cookbook
 
-For copy-paste examples your team can use immediately, see:
+Copy-paste examples for common tasks live here:
 
 - [Prompt Cookbook](C:/DEV/fab-cli-skills/docs/prompt-cookbook.md)
 
+Recommended first prompts:
+
+```text
+Use $fab-bootstrap to check whether Fabric CLI is installed, fix PATH if needed, and help me log in with user auth.
+```
+
+```text
+Use $fab-discovery to inspect my Fabric workspace and summarize what I can work with.
+```
+
 ---
 
-## Updating Skills
+## Update Flow
 
-When the repo changes:
+When this repo changes:
+
+Windows:
 
 ```powershell
 git pull
 .\scripts\install.ps1
 ```
 
-or on macOS:
+macOS:
 
 ```bash
 git pull
 bash ./scripts/install.sh
 ```
 
-That refreshes the local skill copies in Codex.
+For GitHub Copilot, use the corresponding `install-copilot` script instead.
 
 ---
 
-## Repo Layout
+## Install Locations
 
-```text
-fab-cli-skills/
-├── README.md
-├── scripts/
-│   ├── install.ps1
-│   └── install.sh
-└── skills/
-    ├── fab-bootstrap/
-    ├── fab-deploy/
-    ├── fab-job-ops/
-    ├── fab-api-bridge/
-    ├── fab-acl-audit/
-    ├── fab-onelake-ops/
-    └── fab-discovery/
-```
+### Codex
 
----
+- Windows: `%USERPROFILE%\.codex\skills`
+- macOS: `~/.codex/skills`
+- If `CODEX_HOME` is set: `$CODEX_HOME/skills`
 
-## Good First Prompt For Colleagues
+### GitHub Copilot
 
-If someone is brand new, this is a good starting point:
+- Windows: `%USERPROFILE%\.copilot\skills`
+- macOS: `~/.copilot/skills`
 
-```text
-Use $fab-bootstrap to check whether Fabric CLI is installed, fix PATH if needed, and help me log in with user auth.
-```
-
-Then once setup is done:
-
-```text
-Use $fab-discovery to show me what is in my Fabric workspace and what commands I can use.
-```
+The install scripts copy the skills from this repo into the correct local skills directory.
 
 ---
 
 ## Notes
 
-- These skills are designed around **user auth mode**.
-- Some actions still require browser interaction, especially `fab auth login`.
-- A few Fabric CLI behaviors are terminal-sensitive on Windows, and the skills include workarounds for that.
-- The helper scripts live inside each skill folder and are copied along with the skill.
+- These skills are designed for user-auth-based Fabric workflows.
+- `fab auth login` still requires browser interaction.
+- The helper scripts are included inside the skill folders and are installed automatically with the skills.
 
 ---
 
-## Bottom Line
+## Team Rollout
 
-Yes, sharing these in a repo is the right move.
+The simplest team rollout is:
 
-For teammates, the smoothest experience is:
+1. Share this repo.
+2. Ask teammates to run one install script.
+3. Point them to the prompt cookbook.
 
-**clone repo -> run install script -> restart Codex -> use `$fab-...` prompts**
+That gives everyone the same setup, the same helper scripts, and the same usage patterns.
