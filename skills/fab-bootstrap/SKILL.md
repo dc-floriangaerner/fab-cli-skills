@@ -7,7 +7,7 @@ description: Use this skill to bootstrap Fabric CLI for users who do not already
 
 ## Overview
 
-Use this skill for first-time `fab` setup on Windows and macOS in user-auth mode. It handles install or upgrade, persistent PATH updates, version verification, auth status checks, and launching `fab auth login`.
+Use this skill for first-time `fab` setup on Windows and macOS in user-auth mode. It handles install or upgrade, persistent PATH updates, version verification, auth status checks, and interactive login handoff when `fab auth login` cannot run inside the current terminal host.
 
 Read [install-auth.md](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/references/install-auth.md) for the setup flow and caveats. Use [bootstrap_fab.py](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/scripts/bootstrap_fab.py) to automate install, PATH setup, verification, and interactive login.
 Use [repair_fab_path.py](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/scripts/repair_fab_path.py) when `fab` is already installed and the only issue is persistent PATH configuration.
@@ -26,11 +26,12 @@ Use [repair_fab_path.py](C:/Users/florian.gaerner/.codex/skills/fab-bootstrap/sc
 3. Add the user-level script directory to the user's persistent PATH automatically.
 4. Verify `fab --version`.
 5. Check `fab auth status`.
-6. If requested and not already logged in, launch `fab auth login`.
+6. If requested and not already logged in, try `fab auth login`.
+7. If interactive login cannot start in the current terminal host, tell the user to run the printed `fab auth login` command in a regular local terminal and then re-check `fab auth status`.
 
 ## Command Patterns
 
-Bootstrap everything, including login:
+Bootstrap everything, including login when the current terminal host supports it:
 
 ```powershell
 python scripts/bootstrap_fab.py --login
@@ -59,10 +60,12 @@ python scripts/repair_fab_path.py
 - Prefer user-level install so admin rights are not required.
 - Treat PATH updates as persistent user-environment changes and say so clearly.
 - Expect `fab auth login` to require browser interaction even when the setup steps are automated.
+- On Windows, be explicit that embedded terminals may fail to launch the interactive login flow cleanly. If that happens, direct the user to run the printed login command in a regular PowerShell, Windows Terminal, or `cmd.exe` session.
+- If `fab auth status` shows encoding problems, retry with `PYTHONIOENCODING=utf-8` and `PYTHONUTF8=1`.
 - Tell the user that a new shell may be needed before plain `fab` resolves everywhere.
 
 ## Output Expectations
 
 - Show the detected script directory and whether it was added to PATH.
 - Show the resolved `fab` executable and version.
-- Report whether the user is already logged in or whether interactive login was launched.
+- Report whether the user is already logged in, whether interactive login was launched, or whether login must be completed in a regular local terminal.

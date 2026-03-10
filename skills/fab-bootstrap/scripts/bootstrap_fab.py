@@ -21,12 +21,19 @@ PATH_BLOCK_START = "# Added by fab-bootstrap"
 PATH_BLOCK_END = "# End fab-bootstrap"
 
 
+def child_env() -> dict[str, str]:
+    env = os.environ.copy()
+    env.setdefault("PYTHONUTF8", "1")
+    env.setdefault("PYTHONIOENCODING", "utf-8")
+    return env
+
+
 def run(command: list[str], dry_run: bool = False, check: bool = True) -> subprocess.CompletedProcess[str] | None:
     printable = " ".join(command)
     print(f"$ {printable}")
     if dry_run:
         return None
-    return subprocess.run(command, text=True, check=check)
+    return subprocess.run(command, text=True, check=check, env=child_env())
 
 
 def user_script_dir() -> Path:
@@ -146,15 +153,23 @@ def verify_fab(script_dir: Path) -> Path:
     else:
         print("`fab` is not yet visible on the current PATH. A new shell may be required.")
 
-    result = subprocess.run([str(fab_path), "--version"], capture_output=True, text=True, check=True)
+    result = subprocess.run([str(fab_path), "--version"], capture_output=True, text=True, check=True, env=child_env())
     print(result.stdout.strip())
     return fab_path
 
 
 def check_auth_status(fab_path: Path) -> bool:
-    result = subprocess.run([str(fab_path), "auth", "status"], capture_output=True, text=True, check=False)
-    print(result.stdout.strip())
-    return "Logged In: True" in result.stdout
+    result = subprocess.run(
+        [str(fab_path), "auth", "status"],
+        capture_output=True,
+        text=True,
+        check=False,
+        env=child_env(),
+    )
+    output = (result.stdout or result.stderr or "").strip()
+    print(output)
+    normalized = output.lower()
+    return "logged in to app.fabric.microsoft.com" in normalized and "not logged in" not in normalized
 
 
 def run_user_login(fab_path: Path, dry_run: bool) -> None:
@@ -162,7 +177,18 @@ def run_user_login(fab_path: Path, dry_run: bool) -> None:
         print("User auth already active.")
         return
     print("Launching interactive user login...")
-    run([str(fab_path), "auth", "login"], dry_run=dry_run)
+    try:
+        run([str(fab_path), "auth", "login"], dry_run=dry_run)
+    except subprocess.CalledProcessError as exc:
+        if platform.system() == "Windows":
+            print("Interactive login could not start in this terminal.")
+            print("Open a regular Windows terminal and run:")
+            print(f"  {fab_path} auth login")
+            print("If auth status output is garbled there too, set:")
+            print("  $env:PYTHONIOENCODING='utf-8'")
+            print("  $env:PYTHONUTF8='1'")
+            raise SystemExit(exc.returncode)
+        raise
     if not dry_run:
         check_auth_status(fab_path)
 
