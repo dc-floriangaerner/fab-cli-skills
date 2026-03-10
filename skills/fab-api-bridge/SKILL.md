@@ -26,6 +26,21 @@ Read [references/api-patterns.md](references/api-patterns.md) when the request n
 4. Inspect one raw response before locking in a `-q` expression, because `fab api` may wrap the payload.
 5. Summarize the request and the relevant response fields rather than dumping raw JSON unless the user asked for it.
 
+## Response Shape Tip
+
+`fab api` often wraps the actual API payload in an envelope like:
+
+```json
+{
+  "status_code": 200,
+  "text": {
+    "value": []
+  }
+}
+```
+
+That means JMESPath filters often need to start from `text`, for example `text.value[]`, rather than `value[]`.
+
 ## Command Patterns
 
 Simple GET:
@@ -37,7 +52,7 @@ fab api workspaces -X get
 GET with params and filtering:
 
 ```powershell
-fab api "workspaces" -X get -P "continuationToken=abc" -q "value[].{id:id,name:displayName}"
+fab api "workspaces" -X get -P "continuationToken=abc" -q "text.value[].{id:id,name:displayName}"
 ```
 
 POST with a JSON body:
@@ -71,6 +86,7 @@ python scripts/run_api_spec.py .\api-request.json --execute
 - Use `--show_headers` only when headers matter to the task.
 - If the endpoint mutates data, state that clearly before executing.
 - Prefer the spec helper for repeated or complex calls so the request is reviewable before execution.
+- When a JMESPath query unexpectedly returns `None`, retry against the wrapped payload shape, usually `text.value[...]`.
 
 ## Output Expectations
 

@@ -39,7 +39,7 @@ fab exists "target-ws.Workspace/item.Notebook"
 Export an item to a local directory:
 
 ```powershell
-fab export "source-ws.Workspace/item.Notebook" -i ".\\staging\\item.Notebook"
+fab export "source-ws.Workspace/item.Notebook" -o ".\\staging" -f
 ```
 
 Import an item into a workspace:
@@ -67,9 +67,13 @@ python scripts/render_manifest.py .\deploy-manifest.json
 - Prefer reversible operations using local export folders before destructive updates.
 - If a deployment involves multiple items, keep a clear per-item summary.
 - In non-interactive automation, prefer `fab import -f` when an import would otherwise prompt.
+- Some `fab import` operations may complete successfully even when the terminal host times out before the final success line is printed. Always verify the destination with `fab exists`, `fab dir`, or `fab api` after long-running imports.
+- When a deployment creates downstream dependencies such as pipelines that reference notebook IDs, re-discover the imported item IDs after import instead of assuming the IDs from another workspace or an earlier run.
+- Treat same-workspace folder reorganization as a separate risk area. `fab` may not support moving items across folders within the same workspace reliably.
 
 ## Output Expectations
 
 - Show the exact `fab` commands used or proposed.
 - State the source, destination, overwrite behavior, and verification result.
 - If you had to infer paths or item types, say so explicitly.
+- If verification relied on `fab api` because the first-class command surface was flaky, say that explicitly.

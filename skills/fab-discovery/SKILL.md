@@ -22,7 +22,8 @@ Use this skill for exploration and orientation in Fabric with `fab`. It helps ma
 2. Resolve the exact workspace or item path from `fab dir` output before using `fab get` or deeper listing commands.
 3. Use `fab desc` on a dot element or resolved path to discover supported commands.
 4. Narrow output with `fab get <path> -q <jmespath>` when large property payloads are noisy.
-5. Only move to mutating commands after the path and object type are clear.
+5. If `fab get` is unstable in the current terminal host, fall back to `fab api` for item and workspace discovery.
+6. Only move to mutating commands after the path and object type are clear.
 
 ## Command Patterns
 
@@ -59,11 +60,21 @@ Query only the needed fields from a resolved object:
 fab get "Analytics Dev.Workspace/nb_silver_projects.Notebook" -q "{displayName: displayName, type: type}"
 ```
 
+Fallback to the Fabric REST surface through `fab api`:
+
+```powershell
+fab api "workspaces" -X get
+fab api "workspaces/<workspace-id>/items" -X get
+fab api "workspaces/<workspace-id>/folders" -X get
+```
+
 ## Path Resolution Tips
 
 - Prefer the exact path token emitted by `fab dir`, including suffixes such as `.Workspace`, `.Notebook`, or `.Lakehouse`.
 - If a shorthand path such as `ws.<name>` fails with `InvalidPath`, fall back to the literal value returned by `fab dir`.
 - Path syntax can vary across `fab` versions, so treat `fab dir` output as the source of truth.
+- If `fab get` fails with host-specific errors such as `No Windows console found. Are you running cmd.exe?`, use `fab api` rather than assuming the path is wrong.
+- Folder paths can resolve inconsistently across `fab` commands. Verify folder operations carefully before depending on folder-contained item discovery for a larger workflow.
 
 Example:
 
@@ -79,6 +90,7 @@ fab dir "Analytics Dev.Workspace" -l
 - Prefer discovery commands before mutating commands.
 - Prefer exact paths copied from `fab dir` output over inferred path prefixes.
 - Use `fab dir` for listing and `fab get -q` for filtering JSON properties.
+- When `fab get` or folder listing is unreliable, prefer `fab api "workspaces/<wsId>/items"` and `fab api "workspaces/<wsId>/folders"` as the fallback source of truth.
 - If an object type is uncertain, use `desc` rather than guessing the command family.
 - Keep summaries short and structured when the listing is large.
 - For workspace overview requests, prefer a compact visual structure over a plain bullet-only inventory.

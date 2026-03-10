@@ -22,12 +22,15 @@ Use [scripts/repair_fab_path.py](scripts/repair_fab_path.py) when `fab` is alrea
 ## Default Workflow
 
 1. Detect the OS and the user-level Python script directory.
-2. Install or upgrade `ms-fabric-cli` with `pip --user`.
-3. Add the user-level script directory to the user's persistent PATH automatically.
-4. Verify `fab --version`.
-5. Check `fab auth status`.
-6. If requested and not already logged in, try `fab auth login`.
-7. If interactive login cannot start in the current terminal host, tell the user to run the printed `fab auth login` command in a regular local terminal and then re-check `fab auth status`.
+2. Resolve every `fab` executable on `PATH` with `where.exe fab` on Windows before reinstalling or upgrading.
+3. If multiple `fab` executables exist, identify which Python environment owns each one and remove stale `ms-fabric-cli` installs first.
+4. Install or upgrade `ms-fabric-cli` with `pip --user`.
+5. Add the user-level script directory to the user's persistent PATH automatically.
+6. Verify `fab --version` and confirm `where.exe fab` resolves to the intended executable.
+7. Check `fab auth status`.
+8. If auth files are corrupt or status parsing fails, remove `~/.config/fab/auth.json` and `~/.config/fab/cache.bin`, then retry.
+9. If requested and not already logged in, try `fab auth login`.
+10. If interactive login cannot start in the current terminal host, tell the user to run the printed `fab auth login` command in a regular local terminal and then re-check `fab auth status`.
 
 ## Command Patterns
 
@@ -67,6 +70,26 @@ Repair PATH only:
 python scripts/repair_fab_path.py
 ```
 
+Detect duplicate `fab` executables on Windows:
+
+```powershell
+where.exe fab
+```
+
+Check which Python install owns the current package:
+
+```powershell
+python -m pip show ms-fabric-cli
+py -3.12 -m pip show ms-fabric-cli
+```
+
+Clear corrupted auth cache before retrying login:
+
+```powershell
+cmd /c del /f /q %USERPROFILE%\.config\fab\auth.json
+cmd /c del /f /q %USERPROFILE%\.config\fab\cache.bin
+```
+
 ## Guardrails
 
 - Prefer user-level install so admin rights are not required.
@@ -74,6 +97,8 @@ python scripts/repair_fab_path.py
 - Expect `fab auth login` to require browser interaction even when the setup steps are automated.
 - On Windows, be explicit that embedded terminals may fail to launch the interactive login flow cleanly. If that happens, direct the user to run the printed login command in a regular PowerShell, Windows Terminal, or `cmd.exe` session.
 - If `fab auth status` shows encoding problems, retry with `PYTHONIOENCODING=utf-8` and `PYTHONUTF8=1`.
+- If `fab auth status`, `fab dir`, or `fab pwd` fail with JSON parsing errors such as `Expecting value: line 1 column 1`, inspect `~/.config/fab/auth.json` for corruption and clear the auth cache files before reinstalling.
+- Do not assume `python -m pip install --user ms-fabric-cli` updates the same Python environment that `fab` resolves from. On Windows Store Python setups, stale installs from another Python version may remain earlier on `PATH`.
 - If `python -m pip` is unavailable, retry with the Windows launcher (`py -3`) or ensure Python is installed for the current user.
 - Tell the user that a new shell may be needed before plain `fab` resolves everywhere.
 

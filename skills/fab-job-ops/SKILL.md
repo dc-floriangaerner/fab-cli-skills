@@ -78,9 +78,12 @@ python scripts/poll_latest_run.py "ws.Workspace/item.Notebook"
 - Separate infrastructure failure, authentication failure, and notebook or pipeline logic failure when summarizing.
 - For long waits, report periodic status instead of staying silent.
 - If cancellation is requested, use the specific run identifier and confirm that the target run changed state.
+- Prefer `fab job run-status --id <run-id>` over `fab job run-list` whenever the run ID is known. In some environments `run-list` may return `No runs found` even though the run exists and `run-status` works.
+- For pipeline runs, `NotStarted` can represent a queued state rather than a failure. Poll until it transitions or times out before concluding that the run is stuck.
 
 ## Output Expectations
 
 - Include the exact job command.
 - Report run ID, state, and whether the action completed or is still in progress.
 - If scheduling changed, include the updated schedule details and what changed.
+- If the run was validated with `run-status` because `run-list` was incomplete, say so explicitly.
