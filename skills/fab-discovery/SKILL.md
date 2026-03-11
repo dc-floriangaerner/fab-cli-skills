@@ -5,18 +5,11 @@ description: Use this skill to explore Fabric workspaces, items, paths, and supp
 
 # Fab Discovery
 
-## Overview
+## Use
 
 Use this skill for exploration and orientation in Fabric with `fab`. It helps map the workspace or item tree, discover valid paths, inspect object properties, and find which commands are supported before taking action.
 
-## When To Use It
-
-- User asks what workspaces, items, or paths exist.
-- User is unsure what command is supported for a path or item type.
-- User wants to inspect the current Fabric location or change context.
-- The task starts with discovery rather than mutation.
-
-## Default Workflow
+## Workflow
 
 1. Start with `fab pwd` and `fab dir` to understand the current context.
 2. Resolve the exact workspace or item path from `fab dir` output before using `fab get` or deeper listing commands.
@@ -25,7 +18,7 @@ Use this skill for exploration and orientation in Fabric with `fab`. It helps ma
 5. If `fab get` is unstable in the current terminal host, fall back to `fab api` for item and workspace discovery.
 6. Only move to mutating commands after the path and object type are clear.
 
-## Command Patterns
+## Commands
 
 Show current location:
 
@@ -95,7 +88,7 @@ fab dir "Analytics Dev.Workspace" -l
 - Keep summaries short and structured when the listing is large.
 - For workspace overview requests, prefer a compact visual structure over a plain bullet-only inventory.
 
-## Output Expectations
+## Output
 
 - Explain the discovered structure in plain language.
 - Include the path or item type you resolved.
@@ -106,7 +99,7 @@ fab dir "Analytics Dev.Workspace" -l
 - Use bullets as a fallback, not the default, for workspace overviews.
 - Call out which command families appear relevant next.
 
-## Workspace Overview Format
+## Workspace Overview
 
 When the user asks what is inside a workspace, prefer this response shape:
 

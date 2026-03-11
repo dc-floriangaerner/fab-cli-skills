@@ -5,20 +5,13 @@ description: Use this skill when a Fabric task needs direct REST API access thro
 
 # Fab Api Bridge
 
-## Overview
+## Use
 
 Use this skill as the escape hatch for advanced Fabric workflows through `fab api`. It is best when the user wants direct endpoint access while still benefiting from `fab` authentication, output formatting, and JMESPath filtering.
 
 Read [references/api-patterns.md](references/api-patterns.md) when the request needs a reusable API shape or translation from REST concepts into `fab api` flags. Use [scripts/run_api_spec.py](scripts/run_api_spec.py) when the user wants a dry-run command generated from a JSON spec. Point users to [assets/api-request.sample.json](assets/api-request.sample.json) as a starter template.
 
-## When To Use It
-
-- A first-class `fab` command does not exist or is missing the needed option.
-- The user refers to a REST endpoint, request body, query parameters, or custom headers.
-- The task needs filtered JSON output using `-q` JMESPath queries.
-- The task needs a specific token audience such as `fabric`, `storage`, `azure`, or `powerbi`.
-
-## Default Workflow
+## Workflow
 
 1. Prefer a first-class `fab` command when it exists and is adequate.
 2. Switch to `fab api` only when the CLI command surface is missing or too limited.
@@ -41,7 +34,7 @@ Read [references/api-patterns.md](references/api-patterns.md) when the request n
 
 That means JMESPath filters often need to start from `text`, for example `text.value[]`, rather than `value[]`.
 
-## Command Patterns
+## Commands
 
 Simple GET:
 
@@ -88,7 +81,7 @@ python scripts/run_api_spec.py .\api-request.json --execute
 - Prefer the spec helper for repeated or complex calls so the request is reviewable before execution.
 - When a JMESPath query unexpectedly returns `None`, retry against the wrapped payload shape, usually `text.value[...]`.
 
-## Output Expectations
+## Output
 
 - Show the final `fab api` command with method, endpoint, and notable options.
 - Summarize the response shape and key fields.

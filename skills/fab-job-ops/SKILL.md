@@ -5,7 +5,7 @@ description: Use this skill for running, scheduling, monitoring, and troubleshoo
 
 # Fab Job Ops
 
-## Overview
+## Use
 
 Use this skill when the user wants Codex to operate Fabric jobs end to end with `fab job`. It covers synchronous runs, asynchronous starts, polling, schedule changes, cancellations, and concise run summaries.
 
@@ -13,14 +13,7 @@ Read [references/job-runbook.md](references/job-runbook.md) for runbook-style tr
 
 Use [scripts/poll_latest_run.py](scripts/poll_latest_run.py) when the user wants "watch the latest run" and does not have an ID ready.
 
-## When To Use It
-
-- User asks to run a notebook, pipeline, or Spark job and wait for the result.
-- User wants a status summary for a failing or long-running job.
-- User asks to create, update, or remove a scheduled run.
-- User needs the latest job run IDs and outcome details.
-
-## Default Workflow
+## Workflow
 
 1. Confirm the target item path and job mode: run now, start asynchronously, inspect, schedule, or cancel.
 2. Use `fab job --help` and the relevant subcommand help if arguments are not obvious.
@@ -28,7 +21,7 @@ Use [scripts/poll_latest_run.py](scripts/poll_latest_run.py) when the user wants
 4. Poll with `fab job run-status` or `fab job run-list` when the task requires waiting or troubleshooting.
 5. Summarize the final state, important timestamps, run IDs, and next action.
 
-## Command Patterns
+## Commands
 
 Run a job synchronously:
 
@@ -81,7 +74,7 @@ python scripts/poll_latest_run.py "ws.Workspace/item.Notebook"
 - Prefer `fab job run-status --id <run-id>` over `fab job run-list` whenever the run ID is known. In some environments `run-list` may return `No runs found` even though the run exists and `run-status` works.
 - For pipeline runs, `NotStarted` can represent a queued state rather than a failure. Poll until it transitions or times out before concluding that the run is stuck.
 
-## Output Expectations
+## Output
 
 - Include the exact job command.
 - Report run ID, state, and whether the action completed or is still in progress.

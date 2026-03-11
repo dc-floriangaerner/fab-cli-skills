@@ -1,4 +1,4 @@
 interface:
   display_name: "Fab Workspace Architecture"
-  short_description: "Help with Fab Workspace Architecture tasks"
-  default_prompt: "Use -workspace-architecture to design or review a Microsoft Fabric workspace that uses one lakehouse with bronze, silver, and gold schemas plus explicit folders for stage-specific assets."
+  short_description: "Design Fabric medallion workspace patterns"
+  default_prompt: "Use $fab-workspace-architecture to design or review a Microsoft Fabric medallion setup, choosing between a single-workspace pattern and separate bronze, silver, and gold workspaces."

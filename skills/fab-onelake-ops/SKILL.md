@@ -5,20 +5,13 @@ description: Use this skill for file and folder work inside Fabric and OneLake w
 
 # Fab Onelake Ops
 
-## Overview
+## Use
 
 Use this skill when the user is working with Fabric paths like workspaces, items, folders, files, or lakehouse table areas through `fab`. It focuses on safe navigation and file operations in filesystem-style paths.
 
 Read [references/path-patterns.md](references/path-patterns.md) when the task needs reusable path conventions or a safe sequence for file operations. Use [scripts/render_path_op_spec.py](scripts/render_path_op_spec.py) for dry-run command generation from JSON specs, and [scripts/check_paths.py](scripts/check_paths.py) for batch existence checks. Point users to [assets/path-op.sample.json](assets/path-op.sample.json) and [assets/paths.sample.json](assets/paths.sample.json) as starter templates.
 
-## When To Use It
-
-- User asks to inspect or navigate OneLake-style paths.
-- User wants to copy, move, link, or delete files or folders inside Fabric.
-- User needs to check whether a path or file exists before a change.
-- User is working with Lakehouse `Files` or `Tables` paths and wants verification.
-
-## Default Workflow
+## Workflow
 
 1. Start with `fab dir`, `fab pwd`, `fab exists`, or `fab get` to confirm the current path and target.
 2. If the target is a Lakehouse, list both `.../Files` and `.../Tables` before assuming where the useful content lives.
@@ -27,7 +20,7 @@ Read [references/path-patterns.md](references/path-patterns.md) when the task ne
 5. Perform `copy`, `move`, `mklink`, `mkdir`, or `del` only after confirming the exact path.
 6. Re-list or re-check existence to verify the result.
 
-## Command Patterns
+## Commands
 
 List a path:
 
@@ -87,7 +80,7 @@ python scripts/check_paths.py .\paths.json
 - Separate file workflows from table workflows. Use `fab table` subcommands when the resource is a Delta table rather than a plain file path.
 - Prefer rendering commands before executing copy, move, mklink, or delete operations in automation.
 
-## Output Expectations
+## Output
 
 - Show the resolved paths.
 - Note whether the relevant content was found under `Files` or `Tables`.

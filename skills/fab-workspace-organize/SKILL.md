@@ -5,20 +5,13 @@ description: Use this skill to organize Microsoft Fabric workspaces with fab-cli
 
 # Fab Workspace Organize
 
-## Overview
+## Use
 
 Use this skill when the task is to clean up or structure a Fabric workspace. It is optimized for folder creation, safe inventory checks, phased reorganization, legacy item cleanup, and knowing when to stop and switch to the Fabric UI or direct API work.
 
 Use `fab-discovery` first when the current workspace contents are still unclear. Use `fab-api-bridge` when folder or item behavior is incomplete through first-class `fab` commands.
 
-## When To Use It
-
-- User wants a workspace organized into folders or sections.
-- User wants to remove obsolete notebooks, pipelines, or other items after a refactor.
-- User wants a cleaner workspace layout before or after a deployment.
-- The task includes verifying whether reorganization succeeded without breaking runnable assets.
-
-## Default Workflow
+## Workflow
 
 1. Inventory the workspace with `fab dir "<workspace>.Workspace" -l`.
 2. Discover folder support and command behavior with `fab desc ".Folder"` and `fab desc ".Workspace"` if needed.
@@ -27,7 +20,7 @@ Use `fab-discovery` first when the current workspace contents are still unclear.
 5. Verify every structural change with `fab exists`, `fab dir`, or `fab api`.
 6. Delete obsolete root-level items only after the replacement path is verified.
 
-## Command Patterns
+## Commands
 
 Inspect the workspace:
 
@@ -86,7 +79,7 @@ fab api "workspaces/<workspace-id>/folders" -X get
 - Keep folder naming consistent and sortable.
 - Summarize clearly what was completed, what was verified, and what still needs UI follow-up.
 
-## Output Expectations
+## Output
 
 - Show the intended workspace structure in plain language.
 - State which changes were completed through `fab`.

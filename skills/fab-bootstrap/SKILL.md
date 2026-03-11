@@ -5,21 +5,14 @@ description: Use this skill to bootstrap Fabric CLI for users who do not already
 
 # Fab Bootstrap
 
-## Overview
+## Use
 
 Use this skill for first-time `fab` setup on Windows and macOS in user-auth mode. It handles install or upgrade, persistent PATH updates, version verification, auth status checks, and interactive login handoff when `fab auth login` cannot run inside the current terminal host.
 
 Read [references/install-auth.md](references/install-auth.md) for the setup flow and caveats. Use [scripts/bootstrap_fab.py](scripts/bootstrap_fab.py) to automate install, PATH setup, verification, and interactive login.
 Use [scripts/repair_fab_path.py](scripts/repair_fab_path.py) when `fab` is already installed and the only issue is persistent PATH configuration.
 
-## When To Use It
-
-- User does not have `fab` installed yet.
-- `fab` is installed but not on `PATH`.
-- The user wants Codex to set up Fabric CLI end to end in user-auth mode.
-- The user is on Windows or macOS and wants a repeatable bootstrap flow.
-
-## Default Workflow
+## Workflow
 
 1. Detect the OS and the user-level Python script directory.
 2. Resolve every `fab` executable on `PATH` with `where.exe fab` on Windows before reinstalling or upgrading.
@@ -32,7 +25,7 @@ Use [scripts/repair_fab_path.py](scripts/repair_fab_path.py) when `fab` is alrea
 9. If requested and not already logged in, try `fab auth login`.
 10. If interactive login cannot start in the current terminal host, tell the user to run the printed `fab auth login` command in a regular local terminal and then re-check `fab auth status`.
 
-## Command Patterns
+## Commands
 
 Bootstrap everything, including login when the current terminal host supports it:
 
@@ -102,7 +95,7 @@ cmd /c del /f /q %USERPROFILE%\.config\fab\cache.bin
 - If `python -m pip` is unavailable, retry with the Windows launcher (`py -3`) or ensure Python is installed for the current user.
 - Tell the user that a new shell may be needed before plain `fab` resolves everywhere.
 
-## Output Expectations
+## Output
 
 - Show the detected script directory and whether it was added to PATH.
 - Show the resolved `fab` executable and version.

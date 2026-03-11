@@ -5,7 +5,7 @@ description: Use this skill to define, assess, and safely apply Microsoft Fabric
 
 # Fab Conventions
 
-## Overview
+## Use
 
 Use this skill when the task is to create or enforce conventions in Microsoft Fabric. It is optimized for three modes:
 
@@ -17,14 +17,7 @@ Read [references/conventions-matrix.md](references/conventions-matrix.md) when y
 
 Use `fab-discovery` first when the current workspace shape is still unknown. Use `fab-api-bridge` when first-class `fab` commands do not expose the metadata you need. Use `fab-workspace-organize` when the user mainly wants folder cleanup rather than conventions.
 
-## When To Use It
-
-- User asks for naming conventions for workspaces, items, folders, tables, views, columns, or measures.
-- User wants help naming a new Fabric workspace, lakehouse, warehouse, notebook, pipeline, semantic model, or table.
-- User wants an audit of an existing workspace against an agreed standard.
-- User wants to rename or reorganize existing assets while minimizing breaks in pipelines, dataflows, semantic models, reports, shortcuts, or CI/CD.
-
-## Default Workflow
+## Workflow
 
 1. Determine whether the request is for design, assessment, or remediation.
 2. Inventory the scope with `fab dir`, `fab get`, `fab desc`, `fab api`, and item-specific metadata sources.
@@ -38,7 +31,7 @@ Use `fab-discovery` first when the current workspace shape is still unknown. Use
 6. Prefer phased remediation over big-bang renames for production assets.
 7. Re-verify the resulting state and summarize accepted exceptions.
 
-## Command Patterns
+## Commands
 
 Inventory a workspace and its items:
 
@@ -112,7 +105,7 @@ Prefer this order for higher-risk renames:
 - Prefer names that are clear to humans first; abbreviations are allowed only when they are standardized and low ambiguity.
 - Document explicit exceptions instead of forcing a rename that creates more operational risk than value.
 
-## Output Expectations
+## Output
 
 - For design requests, return a usable naming standard with examples.
 - For audit requests, return a conventions scorecard and a prioritized findings list.

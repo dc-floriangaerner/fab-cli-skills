@@ -5,7 +5,7 @@ description: Use this skill for Fabric item promotion and deployment with fab-cl
 
 # Fab Deploy
 
-## Overview
+## Use
 
 Use this skill when the task is to promote Fabric items between environments with `fab`. It is optimized for export or import flows, overwrite decisions, path validation, and post-deploy verification.
 
@@ -13,14 +13,7 @@ Read [references/deploy-patterns.md](references/deploy-patterns.md) when the dep
 
 Point users to [assets/deploy-manifest.sample.json](assets/deploy-manifest.sample.json) when they need a starting template.
 
-## When To Use It
-
-- User asks to deploy or promote notebooks, pipelines, reports, lakehouses, or other Fabric items.
-- User wants a repeatable dev to test to prod workflow using `fab export` and `fab import`.
-- User needs overwrite-safe imports with checks before changing the destination.
-- User wants a deployment script or command sequence for CI/CD.
-
-## Default Workflow
+## Workflow
 
 1. Confirm the source workspace or item path and the destination path.
 2. Inspect the source and destination with `fab dir`, `fab get`, `fab exists`, or `fab desc` before changing anything.
@@ -28,7 +21,7 @@ Point users to [assets/deploy-manifest.sample.json](assets/deploy-manifest.sampl
 4. Import with `--force` only when the intended overwrite behavior is explicit.
 5. Re-check the destination after import and summarize what changed.
 
-## Command Patterns
+## Commands
 
 Check whether an item exists before import:
 
@@ -71,7 +64,7 @@ python scripts/render_manifest.py .\deploy-manifest.json
 - When a deployment creates downstream dependencies such as pipelines that reference notebook IDs, re-discover the imported item IDs after import instead of assuming the IDs from another workspace or an earlier run.
 - Treat same-workspace folder reorganization as a separate risk area. `fab` may not support moving items across folders within the same workspace reliably.
 
-## Output Expectations
+## Output
 
 - Show the exact `fab` commands used or proposed.
 - State the source, destination, overwrite behavior, and verification result.
