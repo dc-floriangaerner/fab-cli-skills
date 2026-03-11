@@ -1,7 +1,7 @@
 # Prompt Cookbook
 
 <p align="center">
-  <img src="assets/cookbook-hero.svg" alt="Prompt Cookbook hero" width="100%">
+  <img src="assets/cookbook-hero.png" alt="Prompt Cookbook hero" width="100%">
 </p>
 
 <p align="center">
@@ -54,7 +54,7 @@
   </tr>
   <tr>
     <td width="25%" valign="top"><a href="#onelake"><strong>OneLake</strong></a><br>Inspect files, tables, and paths</td>
-    <td width="25%" valign="top"><a href="#architecture"><strong>Architecture</strong></a><br>Design and audit workspace layout</td>
+    <td width="25%" valign="top"><a href="#architecture"><strong>Architecture</strong></a><br>Design and audit single-workspace or per-stage layouts</td>
     <td width="25%" valign="top"><a href="#apis"><strong>APIs</strong></a><br>Bridge into REST workflows</td>
     <td width="25%" valign="top"><a href="#permissions"><strong>Permissions</strong></a><br>Review ACLs before changing access</td>
   </tr>
@@ -236,6 +236,20 @@ GitHub Copilot:
 
 ```text
 Use the /fab-workspace-architecture skill to propose a single-workspace Fabric architecture with one lakehouse, bronze/silver/gold schemas, and clear folders for notebooks, pipelines, and shared assets.
+```
+
+### Design a per-stage workspace layout
+
+Codex:
+
+```text
+Use $fab-workspace-architecture to propose a Fabric architecture with separate Dev, Test, and Prod workspaces, explain what belongs in each stage, and show how notebooks, pipelines, lakehouses, and deployment flow should be organized.
+```
+
+GitHub Copilot:
+
+```text
+Use the /fab-workspace-architecture skill to propose a Fabric architecture with separate Dev, Test, and Prod workspaces, explain what belongs in each stage, and show how notebooks, pipelines, lakehouses, and deployment flow should be organized.
 ```
 
 ### Audit an existing workspace against the pattern

@@ -117,8 +117,8 @@ bash ./scripts/install-copilot.sh
       <h3>Delivery and Design</h3>
       <p><code>fab-deploy</code> exports, imports, and promotes Fabric items safely.</p>
       <p><code>fab-conventions</code> defines, assesses, and safely applies naming and architecture conventions.</p>
-      <p><code>fab-workspace-architecture</code> designs and audits single-workspace patterns with medallion structure.</p>
-      <p><code>fab-workspace-organize</code> creates folders, cleans legacy clutter, and organizes workspace layouts safely.</p>
+      <p><code>fab-workspace-architecture</code> designs and audits single-workspace or per-stage workspace patterns with medallion structure.</p>
+      <p><code>fab-workspace-organize</code> creates folders, cleans legacy clutter, and organizes single-workspace or stage-based layouts safely.</p>
     </td>
   </tr>
 </table>
@@ -173,7 +173,7 @@ Use $fab-acl-audit to inspect the current ACLs on Test123.Workspace, summarize w
 The cookbook is designed as a prompt gallery, not a wall of text.
 
 <p align="center">
-  <a href="docs/prompt-cookbook.md"><img src="docs/assets/cookbook-hero.svg" alt="Prompt Cookbook hero" width="100%"></a>
+  <a href="docs/prompt-cookbook.md"><img src="docs/assets/cookbook-hero.png" alt="Prompt Cookbook hero" width="100%"></a>
 </p>
 
 It includes copy-pasteable prompts for:
