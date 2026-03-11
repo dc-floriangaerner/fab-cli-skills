@@ -1,25 +1,64 @@
 # Prompt Cookbook
 
 <p align="center">
-  <strong>Copy-paste prompt examples for common Fabric tasks</strong>
+  <img src="assets/cookbook-hero.svg" alt="Prompt Cookbook hero" width="100%">
 </p>
 
 <p align="center">
-  Use these prompts as starting points in Codex or GitHub Copilot.
+  <strong>Copy-paste prompt recipes for real Fabric work.</strong><br>
+  Built so teammates can scan, steal, and use a prompt in seconds.
+</p>
+
+<p align="center">
+  <a href="#before-you-start"><strong>Before You Start</strong></a> ·
+  <a href="#recipe-index"><strong>Recipe Index</strong></a> ·
+  <a href="#setup"><strong>Setup</strong></a> ·
+  <a href="#permissions"><strong>Permissions</strong></a>
 </p>
 
 ---
 
 ## Before You Start
 
-- In Codex, use `$skill-name`
-- In GitHub Copilot, use `/skill-name`
-- Replace workspace names, item names, table names, and paths with your own
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>Codex</h3>
+      <p>Use <code>$skill-name</code>.</p>
+      <p>Example: <code>$fab-job-ops</code></p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>GitHub Copilot</h3>
+      <p>Use <code>/skill-name</code>.</p>
+      <p>Example: <code>/fab-job-ops</code></p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>Always Replace</h3>
+      <p>Swap in your own workspace names, item names, table names, and paths before running anything.</p>
+    </td>
+  </tr>
+</table>
 
-Example:
+> A strong Fabric prompt usually names the skill, the exact path or workspace, the desired action, and any safety rule like "dry run first" or "do not execute yet."
 
-- Codex: `$fab-job-ops`
-- Copilot: `/fab-job-ops`
+---
+
+## Recipe Index
+
+<table>
+  <tr>
+    <td width="25%" valign="top"><a href="#setup"><strong>Setup</strong></a><br>Install, sign in, repair PATH</td>
+    <td width="25%" valign="top"><a href="#discovery"><strong>Discovery</strong></a><br>Inspect workspaces and items</td>
+    <td width="25%" valign="top"><a href="#deployments"><strong>Deployments</strong></a><br>Promote safely between environments</td>
+    <td width="25%" valign="top"><a href="#jobs"><strong>Jobs</strong></a><br>Run, monitor, and explain failures</td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top"><a href="#onelake"><strong>OneLake</strong></a><br>Inspect files, tables, and paths</td>
+    <td width="25%" valign="top"><a href="#architecture"><strong>Architecture</strong></a><br>Design and audit workspace layout</td>
+    <td width="25%" valign="top"><a href="#apis"><strong>APIs</strong></a><br>Bridge into REST workflows</td>
+    <td width="25%" valign="top"><a href="#permissions"><strong>Permissions</strong></a><br>Review ACLs before changing access</td>
+  </tr>
+</table>
 
 ---
 
@@ -33,7 +72,7 @@ Codex:
 Use $fab-bootstrap to install Fabric CLI, fix PATH if needed, and help me log in with user auth.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-bootstrap skill to install Fabric CLI, fix PATH if needed, and help me log in with user auth.
@@ -47,7 +86,7 @@ Codex:
 Use $fab-bootstrap to check my current fab installation and repair PATH only.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-bootstrap skill to check my current fab installation and repair PATH only.
@@ -65,7 +104,7 @@ Codex:
 Use $fab-discovery to inspect Analytics Dev.Workspace and summarize the items I can work with.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-discovery skill to inspect Analytics Dev.Workspace and summarize the items I can work with.
@@ -79,7 +118,7 @@ Codex:
 Use $fab-discovery to inspect Test123.Workspace/nb_silver_customers.Notebook and tell me which fab commands are relevant.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-discovery skill to inspect Test123.Workspace/nb_silver_customers.Notebook and tell me which fab commands are relevant.
@@ -97,7 +136,7 @@ Codex:
 Use $fab-deploy to export Analytics Dev.Workspace/nb_silver_customers.Notebook and import it into Test123.Workspace with overwrite safety checks.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-deploy skill to export Analytics Dev.Workspace/nb_silver_customers.Notebook and import it into Test123.Workspace with overwrite safety checks.
@@ -111,7 +150,7 @@ Codex:
 Use $fab-deploy to turn this deployment manifest into fab commands and explain what each step does.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-deploy skill to turn this deployment manifest into fab commands and explain what each step does.
@@ -129,7 +168,7 @@ Codex:
 Use $fab-job-ops to inspect the latest runs of Analytics Dev.Workspace/pl-main.DataPipeline and summarize failures or recent issues.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-job-ops skill to inspect the latest runs of Analytics Dev.Workspace/pl-main.DataPipeline and summarize failures or recent issues.
@@ -143,7 +182,7 @@ Codex:
 Use $fab-job-ops to start Test123.Workspace/nb_silver_customers.Notebook, monitor the run, and tell me the final status.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-job-ops skill to start Test123.Workspace/nb_silver_customers.Notebook, monitor the run, and tell me the final status.
@@ -161,7 +200,7 @@ Codex:
 Use $fab-onelake-ops to check whether these Test123 lakehouse paths exist and summarize what is missing.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-onelake-ops skill to check whether these Test123 lakehouse paths exist and summarize what is missing.
@@ -175,7 +214,7 @@ Codex:
 Use $fab-onelake-ops to inspect Test123.Workspace/lakehouse.Lakehouse/Files and Test123.Workspace/lakehouse.Lakehouse/Tables and explain the current structure.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-onelake-ops skill to inspect Test123.Workspace/lakehouse.Lakehouse/Files and Test123.Workspace/lakehouse.Lakehouse/Tables and explain the current structure.
@@ -193,7 +232,7 @@ Codex:
 Use $fab-workspace-architecture to propose a single-workspace Fabric architecture with one lakehouse, bronze/silver/gold schemas, and clear folders for notebooks, pipelines, and shared assets.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-workspace-architecture skill to propose a single-workspace Fabric architecture with one lakehouse, bronze/silver/gold schemas, and clear folders for notebooks, pipelines, and shared assets.
@@ -207,7 +246,7 @@ Codex:
 Use $fab-workspace-architecture to inspect Analytics Dev.Workspace and tell me where it violates a one-lakehouse bronze/silver/gold architecture.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-workspace-architecture skill to inspect Analytics Dev.Workspace and tell me where it violates a one-lakehouse bronze/silver/gold architecture.
@@ -225,7 +264,7 @@ Codex:
 Use $fab-api-bridge to call the workspaces endpoint, inspect the response shape, and then suggest a good query for just the names and IDs.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-api-bridge skill to call the workspaces endpoint, inspect the response shape, and then suggest a good query for just the names and IDs.
@@ -239,7 +278,7 @@ Codex:
 Use $fab-api-bridge to create a JSON request spec for this Fabric API call and render the final fab api command before executing it.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-api-bridge skill to create a JSON request spec for this Fabric API call and render the final fab api command before executing it.
@@ -257,7 +296,7 @@ Codex:
 Use $fab-acl-audit to inspect the ACLs on Test123.Workspace and summarize who has which role.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-acl-audit skill to inspect the ACLs on Test123.Workspace and summarize who has which role.
@@ -271,7 +310,7 @@ Codex:
 Use $fab-acl-audit to inspect the current ACLs, then render the command I would use to grant Viewer access to a specific user without executing it yet.
 ```
 
-Copilot:
+GitHub Copilot:
 
 ```text
 Use the /fab-acl-audit skill to inspect the current ACLs, then render the command I would use to grant Viewer access to a specific user without executing it yet.

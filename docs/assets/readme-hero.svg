@@ -1,0 +1,62 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Fabric Skills Pack hero</title>
+  <desc id="desc">A bold banner showing Fabric automation, deployment, and operations themes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="160" y1="90" x2="1440" y2="810" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#081B33"/>
+      <stop offset="0.52" stop-color="#123A63"/>
+      <stop offset="1" stop-color="#1D6C83"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="274" y1="214" x2="1256" y2="705" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E2748" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#0C1830" stop-opacity="0.78"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="348" y1="280" x2="1180" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#36CFC9"/>
+      <stop offset="1" stop-color="#F9C74F"/>
+    </linearGradient>
+    <filter id="blur" x="-100" y="-100" width="1800" height="1100" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
+  <g filter="url(#blur)" opacity="0.55">
+    <circle cx="250" cy="150" r="120" fill="#36CFC9"/>
+    <circle cx="1320" cy="200" r="150" fill="#5DA9FF"/>
+    <circle cx="1290" cy="720" r="140" fill="#F9C74F"/>
+  </g>
+
+  <rect x="172" y="148" width="1256" height="604" rx="32" fill="url(#panel)" stroke="rgba(255,255,255,0.18)"/>
+  <rect x="220" y="196" width="420" height="44" rx="22" fill="rgba(255,255,255,0.09)"/>
+  <text x="252" y="224" fill="#DDF6FF" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2">FABRIC SKILLS PACK</text>
+
+  <text x="220" y="340" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="88" font-weight="800">Fabric work,</text>
+  <text x="220" y="438" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="88" font-weight="800">made delegateable.</text>
+  <text x="220" y="504" fill="#B8D9F6" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="500">Skills for setup, discovery, deploys, jobs, OneLake, APIs, ACLs,</text>
+  <text x="220" y="546" fill="#B8D9F6" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="500">architecture, conventions, and clean workspace organization.</text>
+
+  <rect x="220" y="602" width="250" height="68" rx="18" fill="#36CFC9"/>
+  <text x="273" y="645" fill="#082138" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800">Install once</text>
+  <rect x="492" y="602" width="282" height="68" rx="18" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.2)"/>
+  <text x="548" y="645" fill="#E8F7FF" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Prompt in plain English</text>
+
+  <g transform="translate(930 238)">
+    <rect width="360" height="118" rx="24" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)"/>
+    <text x="34" y="42" fill="#7CE7E2" font-family="Consolas, monospace" font-size="24">Use $fab-job-ops</text>
+    <text x="34" y="74" fill="#E9F4FF" font-family="Segoe UI, Arial, sans-serif" font-size="24">monitor runs and explain</text>
+    <text x="34" y="102" fill="#E9F4FF" font-family="Segoe UI, Arial, sans-serif" font-size="24">what actually failed</text>
+  </g>
+
+  <g transform="translate(870 416)">
+    <rect width="420" height="228" rx="28" fill="rgba(8,22,42,0.5)" stroke="rgba(255,255,255,0.16)"/>
+    <path d="M36 160C88 118 128 110 170 126C212 142 252 196 312 190C346 186 373 166 390 145" stroke="url(#glow)" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="82" cy="141" r="10" fill="#36CFC9"/>
+    <circle cx="172" cy="127" r="10" fill="#7CE7E2"/>
+    <circle cx="311" cy="190" r="10" fill="#B8F28F"/>
+    <circle cx="390" cy="145" r="10" fill="#F9C74F"/>
+    <text x="36" y="54" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="800">From repo to runway</text>
+    <text x="36" y="90" fill="#B8D9F6" font-family="Segoe UI, Arial, sans-serif" font-size="23">Bootstrap quickly. Explore safely.</text>
+    <text x="36" y="120" fill="#B8D9F6" font-family="Segoe UI, Arial, sans-serif" font-size="23">Deploy with fewer surprises.</text>
+  </g>
+</svg>

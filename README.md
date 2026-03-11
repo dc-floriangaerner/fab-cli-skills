@@ -1,37 +1,54 @@
 # Fabric Skills Pack
 
 <p align="center">
-  <strong>Practical Microsoft Fabric skills for Codex and GitHub Copilot</strong>
+  <img src="docs/assets/readme-hero.png" alt="Fabric Skills Pack hero" width="100%">
 </p>
 
 <p align="center">
-  Built for data engineers working with <code>fab</code>, jobs, deployments, OneLake, ACLs, and Fabric APIs.
+  <strong>Practical Microsoft Fabric skills for Codex and GitHub Copilot.</strong><br>
+  Built for teams working with <code>fab</code>, deployments, jobs, OneLake, ACLs, APIs, and workspace design.
 </p>
 
 <p align="center">
-  <a href="#quick-start">Quick Start</a> ·
-  <a href="#skills">Skills</a> ·
-  <a href="#how-to-use">How To Use</a> ·
-  <a href="#prompt-cookbook">Prompt Cookbook</a>
+  <a href="#quick-start"><strong>Quick Start</strong></a> ·
+  <a href="#skill-lineup"><strong>Skill Lineup</strong></a> ·
+  <a href="#how-to-prompt"><strong>How to Prompt</strong></a> ·
+  <a href="docs/prompt-cookbook.md"><strong>Open the Cookbook</strong></a>
 </p>
 
 ---
 
-## What This Is
+## Why This Repo Hits Different
 
-This repo contains reusable Fabric-focused skills for AI coding assistants.
+This is not a random bundle of prompts. It is a working Fabric operator pack for AI assistants.
 
-They make common Fabric tasks easier to delegate in plain English, for example:
+Instead of teaching the assistant Fabric from scratch in every chat, you install a focused set of skills once and then delegate work in plain English:
 
-- install and set up `fab`
-- inspect workspaces and items
-- deploy notebooks or pipelines
-- run and monitor jobs
-- work with OneLake paths
-- call Fabric REST APIs
-- inspect or plan ACL changes
+- bootstrap `fab` and repair setup issues
+- inspect workspaces, items, and paths before making mistakes
+- promote notebooks and pipelines with safer deployment flow
+- run, monitor, and explain failed jobs
+- inspect OneLake content and path structure
+- bridge into Fabric REST APIs when first-class commands are not enough
+- audit ACLs before touching permissions
+- assess architecture, naming, and workspace organization
 
-You do not need to understand how skills work internally. Install them once, then use them in prompts.
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>Install Once</h3>
+      <p>Drop the skills into Codex or Copilot and keep the setup consistent across your team.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>Prompt Naturally</h3>
+      <p>Ask for Fabric work the way you would ask a strong teammate who already knows the platform.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>Operate Safer</h3>
+      <p>Use discovery, dry runs, checks, and workflow guardrails instead of improvising in production.</p>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -79,44 +96,40 @@ bash ./scripts/install-copilot.sh
 2. Start a new chat.
 3. Ask for a Fabric task in plain English.
 
-### For Skill Authors
-
-This repo now includes the same basic skill-authoring helpers used by Codex `skill-creator`:
-
-```powershell
-python .\scripts\init_skill.py my-new-skill --path .\skills --resources references
-python .\scripts\quick_validate.py .\skills\my-new-skill
-python .\scripts\generate_openai_yaml.py .\skills\my-new-skill --interface default_prompt="Use $my-new-skill to do the task."
-```
-
-See [docs/openai-yaml.md](docs/openai-yaml.md) for the local `agents/openai.yaml` rules.
+> Fast first win: open the [Prompt Cookbook](docs/prompt-cookbook.md) and copy a prompt that matches the job in front of you.
 
 ---
 
-## Skills
+## Skill Lineup
 
-| Skill | Purpose |
-| --- | --- |
-| `fab-bootstrap` | Install `fab`, repair PATH, verify setup, launch user login |
-| `fab-discovery` | Explore workspaces, items, paths, and supported commands |
-| `fab-deploy` | Export, import, and promote Fabric items safely |
-| `fab-job-ops` | Start jobs, inspect runs, poll status, summarize failures |
-| `fab-api-bridge` | Use `fab api` for direct REST workflows |
-| `fab-acl-audit` | Inspect access and prepare safe ACL changes |
-| `fab-onelake-ops` | Work with OneLake files, folders, tables, and paths |
-| `fab-conventions` | Define, assess, and safely apply Fabric naming and architecture conventions |
-| `fab-workspace-architecture` | Design and assess a single-workspace Fabric architecture around one lakehouse and medallion layers |
-| `fab-workspace-organize` | Create folders, clean up legacy items, and organize workspace layouts safely |
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>Platform Operations</h3>
+      <p><code>fab-bootstrap</code> installs <code>fab</code>, repairs PATH, verifies setup, and launches user login.</p>
+      <p><code>fab-discovery</code> explores workspaces, items, paths, and supported commands.</p>
+      <p><code>fab-job-ops</code> starts jobs, inspects runs, polls status, and summarizes failures.</p>
+      <p><code>fab-onelake-ops</code> works with OneLake files, folders, tables, and paths.</p>
+      <p><code>fab-api-bridge</code> uses <code>fab api</code> for direct REST workflows.</p>
+      <p><code>fab-acl-audit</code> inspects access and prepares safe ACL changes.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>Delivery and Design</h3>
+      <p><code>fab-deploy</code> exports, imports, and promotes Fabric items safely.</p>
+      <p><code>fab-conventions</code> defines, assesses, and safely applies naming and architecture conventions.</p>
+      <p><code>fab-workspace-architecture</code> designs and audits single-workspace patterns with medallion structure.</p>
+      <p><code>fab-workspace-organize</code> creates folders, cleans legacy clutter, and organizes workspace layouts safely.</p>
+    </td>
+  </tr>
+</table>
 
 ---
 
-## How To Use
+## How to Prompt
 
 ### In Codex
 
 Use `$skill-name` in your prompt.
-
-Examples:
 
 ```text
 Use $fab-bootstrap to install Fabric CLI and help me log in with user auth.
@@ -130,8 +143,6 @@ Use $fab-job-ops to inspect the latest run of pl-main.DataPipeline and summarize
 
 Use `/skill-name` in your prompt.
 
-Examples:
-
 ```text
 Use the /fab-bootstrap skill to install Fabric CLI and help me log in with user auth.
 ```
@@ -140,13 +151,41 @@ Use the /fab-bootstrap skill to install Fabric CLI and help me log in with user 
 Use the /fab-deploy skill to promote a notebook from Analytics Dev to Test123.
 ```
 
+### The Pattern That Works Best
+
+Strong prompts usually include:
+
+- the skill name
+- the exact Fabric path or workspace
+- the action you want
+- the safety bar you expect, such as inspect first, dry run first, or do not execute yet
+
+Example:
+
+```text
+Use $fab-acl-audit to inspect the current ACLs on Test123.Workspace, summarize who has access, and render the safest command to grant Viewer to a user without executing it yet.
+```
+
 ---
 
 ## Prompt Cookbook
 
-Copy-paste examples for common tasks live here:
+The cookbook is designed as a prompt gallery, not a wall of text.
 
-- [Prompt Cookbook](docs/prompt-cookbook.md)
+<p align="center">
+  <a href="docs/prompt-cookbook.md"><img src="docs/assets/cookbook-hero.svg" alt="Prompt Cookbook hero" width="100%"></a>
+</p>
+
+It includes copy-pasteable prompts for:
+
+- setup and login
+- workspace discovery
+- deployments
+- jobs and monitoring
+- OneLake inspection
+- API workflows
+- permission reviews
+- architecture assessment
 
 Recommended first prompts:
 
@@ -158,11 +197,27 @@ Use $fab-bootstrap to check whether Fabric CLI is installed, fix PATH if needed,
 Use $fab-discovery to inspect my Fabric workspace and summarize what I can work with.
 ```
 
+Open it here: [docs/prompt-cookbook.md](docs/prompt-cookbook.md)
+
+---
+
+## For Skill Authors
+
+This repo also includes the same basic skill-authoring helpers used by Codex `skill-creator`.
+
+```powershell
+python .\scripts\init_skill.py my-new-skill --path .\skills --resources references
+python .\scripts\quick_validate.py .\skills\my-new-skill
+python .\scripts\generate_openai_yaml.py .\skills\my-new-skill --interface default_prompt="Use $my-new-skill to do the task."
+```
+
+See [docs/openai-yaml.md](docs/openai-yaml.md) for the local `agents/openai.yaml` rules.
+
 ---
 
 ## Update Flow
 
-When this repo changes:
+When this repo changes, pull and reinstall.
 
 Windows:
 
@@ -184,16 +239,22 @@ For GitHub Copilot, use the corresponding `install-copilot` script instead.
 
 ## Install Locations
 
-### Codex
+<details>
+  <summary><strong>Codex</strong></summary>
 
 - Windows: `.codex\skills` under your user profile
 - macOS: `.codex/skills` under your home directory
 - If `CODEX_HOME` is set: `skills` under `CODEX_HOME`
 
-### GitHub Copilot
+</details>
+
+<details>
+  <summary><strong>GitHub Copilot</strong></summary>
 
 - Windows: `.copilot\skills` under your user profile
 - macOS: `.copilot/skills` under your home directory
+
+</details>
 
 The install scripts copy the skills from this repo into the correct local skills directory.
 
@@ -209,10 +270,10 @@ The install scripts copy the skills from this repo into the correct local skills
 
 ## Team Rollout
 
-The simplest team rollout is:
+The simplest rollout looks like this:
 
-1. Share this repo.
-2. Ask teammates to run one install script.
-3. Point them to the prompt cookbook.
+1. Share this repo with the team.
+2. Have each teammate run one install script.
+3. Point everyone at the cookbook for their first real task.
 
-That gives everyone the same setup, the same helper scripts, and the same usage patterns.
+That gives the team the same setup, the same helper scripts, and the same usage patterns with much less reinvention.
