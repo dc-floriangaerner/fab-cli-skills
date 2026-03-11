@@ -81,8 +81,18 @@ python scripts/run_api_spec.py .\api-request.json --execute
 - Prefer the spec helper for repeated or complex calls so the request is reviewable before execution.
 - When a JMESPath query unexpectedly returns `None`, retry against the wrapped payload shape, usually `text.value[...]`.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting API analysis, requests, or results.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use compact tables for request shape, important parameters, response fields, and notable identifiers.
+- Separate the response into short sections such as `Request`, `Response shape`, `Key fields`, and `Next step`.
+- Use fenced code blocks only for the exact command, body fragment, or JMESPath query the user may want to reuse.
+- Use diagrams only when the request involves a multi-step API flow or paging pattern that benefits from a visual.
+- Keep raw JSON to the minimum needed unless the user explicitly asks for it.
+
 ## Output
 
 - Show the final `fab api` command with method, endpoint, and notable options.
-- Summarize the response shape and key fields.
+- Summarize the response shape and key fields in a compact visual structure.
 - If a first-class `fab` command would be better, say so and prefer it.

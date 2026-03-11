@@ -95,8 +95,18 @@ cmd /c del /f /q %USERPROFILE%\.config\fab\cache.bin
 - If `python -m pip` is unavailable, retry with the Windows launcher (`py -3`) or ensure Python is installed for the current user.
 - Tell the user that a new shell may be needed before plain `fab` resolves everywhere.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting install, PATH, and auth status.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use a compact checklist or table for install status, PATH status, executable resolution, version, and auth state.
+- Use short sections such as `Install`, `PATH`, `Resolved executable`, `Auth`, and `What to do next`.
+- Use fenced code blocks only for commands the user needs to rerun manually.
+- Use callout-like warning text for actions that require a new shell, browser login, or manual terminal handoff.
+- Keep the presentation visually ordered and reassuring rather than verbose.
+
 ## Output
 
-- Show the detected script directory and whether it was added to PATH.
+- Show the detected script directory and whether it was added to PATH in a compact status view.
 - Show the resolved `fab` executable and version.
 - Report whether the user is already logged in, whether interactive login was launched, or whether login must be completed in a regular local terminal.

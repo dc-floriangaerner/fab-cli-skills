@@ -59,8 +59,19 @@ python scripts/render_acl_spec.py .\acl-request.json
 - After changes, verify by reading the ACLs again instead of assuming success.
 - Prefer dry-run command rendering before ACL mutations in automation.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting ACL analysis or changes.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use compact tables for principals, roles, scopes, and before or after comparisons.
+- Use short labeled sections such as `Current state`, `Requested delta`, `Applied change`, and `Verification`.
+- Use fenced code blocks only for exact commands, paths, or raw snippets the user may need to rerun.
+- Use simple diagrams or flow summaries only when they clarify inheritance or multi-scope permission flow.
+- Avoid decorative formatting when the result is tiny; keep the output visually ordered, not noisy.
+
 ## Output
 
-- Summarize the current ACL state in plain language.
-- Show the exact principals and permissions changed.
+- Summarize the current ACL state in a visually ordered format.
+- Show the exact principals and permissions changed in a compact table.
 - Include a before or after comparison whenever possible.
+- Call out risk, uncertainty, or inherited permissions with an explicit warning block or status row.

@@ -74,9 +74,19 @@ python scripts/poll_latest_run.py "ws.Workspace/item.Notebook"
 - Prefer `fab job run-status --id <run-id>` over `fab job run-list` whenever the run ID is known. In some environments `run-list` may return `No runs found` even though the run exists and `run-status` works.
 - For pipeline runs, `NotStarted` can represent a queued state rather than a failure. Poll until it transitions or times out before concluding that the run is stuck.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting job state, schedule changes, or troubleshooting.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use compact tables for run ID, item path, state, timestamps, duration, and validation source.
+- Separate the response into short sections such as `Run summary`, `Timeline`, `Diagnosis`, and `Next action`.
+- Use fenced code blocks only for exact commands or schedule payloads the user may need to reuse.
+- Use simple diagrams only when they clarify status progression, retry flow, or stage transitions.
+- For live monitoring, keep updates visually consistent across polling cycles.
+
 ## Output
 
 - Include the exact job command.
-- Report run ID, state, and whether the action completed or is still in progress.
+- Report run ID, state, and whether the action completed or is still in progress in a compact status view.
 - If scheduling changed, include the updated schedule details and what changed.
 - If the run was validated with `run-status` because `run-list` was incomplete, say so explicitly.

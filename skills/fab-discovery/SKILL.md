@@ -88,9 +88,19 @@ fab dir "Analytics Dev.Workspace" -l
 - Keep summaries short and structured when the listing is large.
 - For workspace overview requests, prefer a compact visual structure over a plain bullet-only inventory.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting discovered workspace structure or command options.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use summary tables, grouped trees, and short labeled sections instead of long bullet-only inventories.
+- Use sections such as `Workspace shape`, `Resolved paths`, `Relevant commands`, and `Next inspection`.
+- Use Mermaid diagrams only when they clarify workspace layers, dependency flow, or item grouping better than a table.
+- Use fenced code blocks only for exact commands or short path examples the user may rerun.
+- Keep the output visually ordered and compact, especially for large inventories.
+
 ## Output
 
-- Explain the discovered structure in plain language.
+- Explain the discovered structure in a visually ordered format.
 - Include the path or item type you resolved.
 - When the user asks for a workspace overview, present the result in a more visual format such as:
   - a short type summary table with counts

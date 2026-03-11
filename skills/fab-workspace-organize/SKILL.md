@@ -79,9 +79,19 @@ fab api "workspaces/<workspace-id>/folders" -X get
 - Keep folder naming consistent and sortable.
 - Summarize clearly what was completed, what was verified, and what still needs UI follow-up.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting reorganization analysis, changes, and follow-up work.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use compact tables for folder plans, completed changes, verification checks, and manual follow-up items.
+- Separate the response into short sections such as `Target structure`, `Completed`, `Verified`, `Blocked`, and `Next step`.
+- Use fenced code blocks only for exact commands the user may want to rerun.
+- Use simple diagrams or trees when they clarify the intended workspace structure better than prose.
+- Keep the output focused on what is safe, what is verified, and what still needs manual handling.
+
 ## Output
 
-- Show the intended workspace structure in plain language.
+- Show the intended workspace structure in a visually ordered format.
 - State which changes were completed through `fab`.
 - Call out any folder limitations or unsupported same-workspace move behavior explicitly.
 - Separate verified cleanup from recommended manual follow-up.

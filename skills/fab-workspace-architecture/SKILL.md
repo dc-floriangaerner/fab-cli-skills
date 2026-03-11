@@ -260,6 +260,16 @@ When the user needs both, do them in this order:
 1. Use `fab-workspace-architecture` to choose the mode and target shape.
 2. Use `fab-conventions` to turn that shape into concrete names and rename rules.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting architecture recommendations, audits, or remediation plans.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use compact scorecards, option comparison tables, and staged recommendation tables instead of long bullet walls.
+- Separate the response into short sections such as `Recommended mode`, `Current shape`, `Findings`, `Target shape`, and `Next steps`.
+- Use Mermaid diagrams when they materially improve understanding of workspace boundaries, stage flow, or dependency direction.
+- Keep diagrams schematic rather than decorative, and pair them with a short written interpretation.
+- Keep naming examples schematic and visually distinct from final enforceable naming rules.
+
 ## Output
 
 - For design requests, return the chosen mode, target architecture, rationale, and exceptions.
@@ -271,3 +281,4 @@ When the user needs both, do them in this order:
 - Always distinguish official-platform guidance from team-specific constraints or choices.
 - When the user wants a recommendation, say plainly that Microsoft guidance prefers stronger layer isolation through separate workspaces, while a single workspace remains a pragmatic option for smaller implementations.
 - If naming examples help, keep them schematic and explicitly say that `fab-conventions` owns the final naming standard.
+- Present the main recommendation and audit output in a visually ordered format, preferably with a scorecard, comparison table, or simple diagram when helpful.

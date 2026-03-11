@@ -64,9 +64,19 @@ python scripts/render_manifest.py .\deploy-manifest.json
 - When a deployment creates downstream dependencies such as pipelines that reference notebook IDs, re-discover the imported item IDs after import instead of assuming the IDs from another workspace or an earlier run.
 - Treat same-workspace folder reorganization as a separate risk area. `fab` may not support moving items across folders within the same workspace reliably.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting deployment plans, execution, or verification.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use compact tables for source, destination, item type, overwrite mode, command status, and verification result.
+- Separate the response into short sections such as `Plan`, `Execution`, `Verification`, and `Follow-up`.
+- Use fenced code blocks only for exact commands or manifest fragments the user may reuse.
+- Use simple diagrams only when a multi-environment promotion path benefits from a visual.
+- Keep the deployment summary crisp and operational rather than narrative-heavy.
+
 ## Output
 
 - Show the exact `fab` commands used or proposed.
-- State the source, destination, overwrite behavior, and verification result.
+- State the source, destination, overwrite behavior, and verification result in a compact visual structure.
 - If you had to infer paths or item types, say so explicitly.
 - If verification relied on `fab api` because the first-class command surface was flaky, say that explicitly.

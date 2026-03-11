@@ -80,9 +80,19 @@ python scripts/check_paths.py .\paths.json
 - Separate file workflows from table workflows. Use `fab table` subcommands when the resource is a Delta table rather than a plain file path.
 - Prefer rendering commands before executing copy, move, mklink, or delete operations in automation.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting path analysis, file operations, or verification.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use compact tables for source path, destination path, object kind, pre-check result, action, and post-check result.
+- Separate the response into short sections such as `Resolved paths`, `Pre-check`, `Action`, and `Verification`.
+- Use fenced code blocks only for exact commands or path snippets the user may need to rerun.
+- Use diagrams only when they clarify folder flow, copy or move direction, or table versus file placement.
+- Keep the output operational and scannable, especially for batch checks.
+
 ## Output
 
 - Show the resolved paths.
 - Note whether the relevant content was found under `Files` or `Tables`.
-- State what existed before and after.
+- State what existed before and after in a compact visual structure.
 - If a file or folder operation failed, report the exact path and the command attempted.

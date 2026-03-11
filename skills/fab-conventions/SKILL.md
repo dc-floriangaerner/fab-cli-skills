@@ -105,6 +105,16 @@ Prefer this order for higher-risk renames:
 - Prefer names that are clear to humans first; abbreviations are allowed only when they are standardized and low ambiguity.
 - Document explicit exceptions instead of forcing a rename that creates more operational risk than value.
 
+## Reporting Style
+
+- Prefer rich Markdown presentation over plain prose when reporting audits, standards, or remediation advice.
+- Start with a short status line that uses clear icons such as `OK`, `WARN`, `FAIL`, or `INFO`.
+- Use scorecards, summary tables, and prioritized findings tables instead of long bullet walls.
+- Separate the response into short sections such as `Scorecard`, `Findings`, `Risk`, `Recommendation`, and `Exceptions`.
+- Use icons or status words consistently to distinguish compliant, warning, risky, and blocked items.
+- Use Mermaid diagrams only when they clarify dependency risk, staged remediation, or naming hierarchy.
+- Keep examples compact and readable; avoid dumping every observed object when a summarized table communicates the point better.
+
 ## Output
 
 - For design requests, return a usable naming standard with examples.
@@ -114,3 +124,4 @@ Prefer this order for higher-risk renames:
   - changes that require phased rollout
   - changes that should stay manual or UI-assisted
 - Always say which rules are hard requirements, strong recommendations, or optional preferences.
+- Present audit and remediation output in a visually ordered format, preferably with tables and explicit severity markers.
