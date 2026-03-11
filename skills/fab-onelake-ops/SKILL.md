@@ -16,9 +16,11 @@ Read [references/path-patterns.md](references/path-patterns.md) when the task ne
 1. Start with `fab dir`, `fab pwd`, `fab exists`, or `fab get` to confirm the current path and target.
 2. If the target is a Lakehouse, list both `.../Files` and `.../Tables` before assuming where the useful content lives.
 3. If the data is table-oriented, list schemas under `.../Tables`, then list tables inside the schema before using `fab table` subcommands.
-4. If copying or moving data, inspect both source and destination first.
-5. Perform `copy`, `move`, `mklink`, `mkdir`, or `del` only after confirming the exact path.
-6. Re-list or re-check existence to verify the result.
+4. If notebook code will write with `saveAsTable("<schema>.<table>")` or otherwise depends on Spark schemas, stop and note that `fab` path checks validate the OneLake layer, not Spark metastore registration.
+5. Do not infer Spark readiness from `Lakehouse/Tables/<schema>` alone; recommend verification from notebook or SQL endpoint perspective, or a schema bootstrap step, before declaring the target ready.
+6. If copying or moving data, inspect both source and destination first.
+7. Perform `copy`, `move`, `mklink`, `mkdir`, or `del` only after confirming the exact path.
+8. Re-list or re-check existence to verify the result.
 
 ## Commands
 
@@ -78,6 +80,8 @@ python scripts/check_paths.py .\paths.json
 - Prefer `exists` before and after any write operation.
 - Do not assume Lakehouse data lives under `Files`; many workflows store the useful data under schema folders in `Tables`.
 - Separate file workflows from table workflows. Use `fab table` subcommands when the resource is a Delta table rather than a plain file path.
+- Treat `Lakehouse/Tables/<schema>` as a directory-style signal only. It is not enough to prove that Spark can use `<schema>` in `saveAsTable` or SQL statements.
+- If the user is troubleshooting notebook writes and sees `SCHEMA_NOT_FOUND`, recommend notebook-side or SQL-endpoint schema verification, or a bootstrap step such as `CREATE SCHEMA IF NOT EXISTS bronze`, `silver`, and `gold`.
 - Prefer rendering commands before executing copy, move, mklink, or delete operations in automation.
 
 ## Reporting Style
@@ -94,5 +98,6 @@ python scripts/check_paths.py .\paths.json
 
 - Show the resolved paths.
 - Note whether the relevant content was found under `Files` or `Tables`.
+- If the task also depends on Spark schemas, state clearly whether you verified only the path layer or also the Spark schema layer.
 - State what existed before and after in a compact visual structure.
 - If a file or folder operation failed, report the exact path and the command attempted.

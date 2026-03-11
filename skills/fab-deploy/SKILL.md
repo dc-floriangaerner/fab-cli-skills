@@ -17,9 +17,10 @@ Point users to [assets/deploy-manifest.sample.json](assets/deploy-manifest.sampl
 
 1. Confirm the source workspace or item path and the destination path.
 2. Inspect the source and destination with `fab dir`, `fab get`, `fab exists`, or `fab desc` before changing anything.
-3. Ensure the local staging directory exists, then export or identify the local artifact to deploy.
-4. Import with `--force` only when the intended overwrite behavior is explicit.
-5. Re-check the destination after import and summarize what changed.
+3. If the deployment needs a new Lakehouse that will host Spark schemas such as `bronze`, `silver`, or `gold`, create it with `-P enableSchemas=true` instead of relying on the default.
+4. Ensure the local staging directory exists, then export or identify the local artifact to deploy.
+5. Import with `--force` only when the intended overwrite behavior is explicit.
+6. Re-check the destination after import and summarize what changed.
 
 ## Commands
 
@@ -41,6 +42,12 @@ Import an item into a workspace:
 fab import "target-ws.Workspace/item.Notebook" -i ".\\staging\\item.Notebook"
 ```
 
+Create a Lakehouse with schema support enabled:
+
+```powershell
+fab create "target-ws.Workspace/lh_bronze.Lakehouse" -P enableSchemas=true
+```
+
 Force an update only after confirming intent:
 
 ```powershell
@@ -60,6 +67,7 @@ python scripts/render_manifest.py .\deploy-manifest.json
 - Prefer reversible operations using local export folders before destructive updates.
 - If a deployment involves multiple items, keep a clear per-item summary.
 - In non-interactive automation, prefer `fab import -f` when an import would otherwise prompt.
+- If you must provision a Lakehouse as part of the deployment and downstream notebooks use `saveAsTable("<schema>.<table>")`, create the Lakehouse with `enableSchemas=true`.
 - Some `fab import` operations may complete successfully even when the terminal host times out before the final success line is printed. Always verify the destination with `fab exists`, `fab dir`, or `fab api` after long-running imports.
 - When a deployment creates downstream dependencies such as pipelines that reference notebook IDs, re-discover the imported item IDs after import instead of assuming the IDs from another workspace or an earlier run.
 - Treat same-workspace folder reorganization as a separate risk area. `fab` may not support moving items across folders within the same workspace reliably.

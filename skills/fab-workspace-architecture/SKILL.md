@@ -69,9 +69,11 @@ Default to `single-workspace` only when the user explicitly wants one workspace,
 Use these defaults unless the user gives a better domain-specific variant:
 
 - For `single-workspace`:
-  - one primary lakehouse for analytical persistence in the workspace
-  - `bronze`, `silver`, and `gold` schemas inside that lakehouse
-  - root-level workspace folders for stage assets, orchestration, and shared utilities
+- one primary lakehouse for analytical persistence in the workspace
+- `bronze`, `silver`, and `gold` schemas inside that lakehouse
+- root-level workspace folders for stage assets, orchestration, and shared utilities
+
+If the recommended design uses Lakehouse schemas such as `bronze`, `silver`, and `gold`, call out that the Lakehouse should be created with schema support enabled, for example `fab create "<workspace>/<lakehouse>.Lakehouse" -P enableSchemas=true`.
 - For `workspace-per-stage`:
   - one primary bronze workspace, one primary silver workspace, and one primary gold workspace for the same domain or program
   - one primary analytical store per stage workspace unless a stronger reason exists to split further
@@ -201,6 +203,7 @@ For an architecture audit, check at least these dimensions:
 ## Guardrails
 
 - Treat bronze, silver, and gold as contract boundaries, not just folder labels.
+- If those stage boundaries live as Lakehouse schemas in one Lakehouse, require schema-enabled Lakehouse creation rather than assuming schema support is implicit.
 - Do not expose bronze directly to business-facing semantic models or reports.
 - Do not expose silver directly to business-facing semantic models or reports unless the user intentionally accepts that it is a semicurated consumer layer.
 - Do not mix shared utility notebooks into bronze, silver, or gold stage folders; keep them in a dedicated shared area.

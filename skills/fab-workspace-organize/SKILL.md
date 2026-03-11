@@ -13,18 +13,20 @@ Use `fab-discovery` first when the current workspace contents are still unclear.
 
 ## Workflow
 
-1. Inventory the workspace with `fab dir "<workspace>.Workspace" -l`.
-2. Discover folder support and command behavior with `fab desc ".Folder"` and `fab desc ".Workspace"` if needed.
-3. Create the target folders first.
-4. Prefer a phased cutover over in-place moves for important runnable assets.
-5. Verify every structural change with `fab exists`, `fab dir`, or `fab api`.
-6. Delete obsolete root-level items only after the replacement path is verified.
+1. If the task depends on browsing or reorganizing workspace folders, enable direct folder visibility with `fab config set folder_listing_enabled true` unless the user explicitly wants to avoid config changes.
+2. Inventory the workspace with `fab dir "<workspace>.Workspace" -l`.
+3. Discover folder support and command behavior with `fab desc ".Folder"` and `fab desc ".Workspace"` if needed.
+4. Create the target folders first.
+5. Prefer a phased cutover over in-place moves for important runnable assets.
+6. Verify every structural change with `fab exists`, `fab dir`, or `fab api`.
+7. Delete obsolete root-level items only after the replacement path is verified.
 
 ## Commands
 
 Inspect the workspace:
 
 ```powershell
+fab config set folder_listing_enabled true
 fab dir "Test123.Workspace" -l
 fab desc ".Folder"
 fab desc ".Workspace"
@@ -63,6 +65,7 @@ fab api "workspaces/<workspace-id>/folders" -X get
 - Prefer simple root-level folder structures such as `10_GoldDimensions`, `20_GoldFacts`, and `30_Orchestration`.
 - Treat same-workspace folder moves as high risk until verified in the current tenant and CLI version.
 - If `fab move` reports unsupported same-workspace folder movement, do not assume a retry will fix it.
+- Prefer enabling `folder_listing_enabled` for folder-heavy cleanup and inventory work so `fab dir` can expose folders directly before you fall back to `fab api`.
 - For critical items, prefer this order:
   1. create folder
   2. import or recreate the item in the target location if supported

@@ -69,6 +69,8 @@ python scripts/poll_latest_run.py "ws.Workspace/item.Notebook"
 
 - If a job fails, gather `run-list` and `run-status` output before suggesting retries.
 - Separate infrastructure failure, authentication failure, and notebook or pipeline logic failure when summarizing.
+- If a notebook run fails with schema errors such as `SCHEMA_NOT_FOUND`, do not treat successful `fab dir` or `fab exists` checks under `Lakehouse/Tables` as proof that the target Spark schema exists.
+- For notebook jobs that write with `saveAsTable("<schema>.<table>")`, recommend verifying the schema from notebook or SQL endpoint perspective, or running a bootstrap step such as `CREATE SCHEMA IF NOT EXISTS bronze`, `silver`, and `gold`, before retrying the job.
 - For long waits, report periodic status instead of staying silent.
 - If cancellation is requested, use the specific run identifier and confirm that the target run changed state.
 - Prefer `fab job run-status --id <run-id>` over `fab job run-list` whenever the run ID is known. In some environments `run-list` may return `No runs found` even though the run exists and `run-status` works.
@@ -90,3 +92,4 @@ python scripts/poll_latest_run.py "ws.Workspace/item.Notebook"
 - Report run ID, state, and whether the action completed or is still in progress in a compact status view.
 - If scheduling changed, include the updated schedule details and what changed.
 - If the run was validated with `run-status` because `run-list` was incomplete, say so explicitly.
+- If the likely blocker is a Spark schema mismatch rather than a path problem, say that explicitly so the user does not retry a job that is guaranteed to fail again.
