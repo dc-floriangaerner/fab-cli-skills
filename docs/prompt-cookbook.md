@@ -183,6 +183,38 @@ Use the /fab-onelake-ops skill to inspect Test123.Workspace/lakehouse.Lakehouse/
 
 ---
 
+## Architecture
+
+### Design a single-workspace medallion layout
+
+Codex:
+
+```text
+Use $fab-workspace-architecture to propose a single-workspace Fabric architecture with one lakehouse, bronze/silver/gold schemas, and clear folders for notebooks, pipelines, and shared assets.
+```
+
+Copilot:
+
+```text
+Use the /fab-workspace-architecture skill to propose a single-workspace Fabric architecture with one lakehouse, bronze/silver/gold schemas, and clear folders for notebooks, pipelines, and shared assets.
+```
+
+### Audit an existing workspace against the pattern
+
+Codex:
+
+```text
+Use $fab-workspace-architecture to inspect Analytics Dev.Workspace and tell me where it violates a one-lakehouse bronze/silver/gold architecture.
+```
+
+Copilot:
+
+```text
+Use the /fab-workspace-architecture skill to inspect Analytics Dev.Workspace and tell me where it violates a one-lakehouse bronze/silver/gold architecture.
+```
+
+---
+
 ## APIs
 
 ### Inspect a Fabric API response safely

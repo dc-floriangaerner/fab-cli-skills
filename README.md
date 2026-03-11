@@ -79,6 +79,18 @@ bash ./scripts/install-copilot.sh
 2. Start a new chat.
 3. Ask for a Fabric task in plain English.
 
+### For Skill Authors
+
+This repo now includes the same basic skill-authoring helpers used by Codex `skill-creator`:
+
+```powershell
+python .\scripts\init_skill.py my-new-skill --path .\skills --resources references
+python .\scripts\quick_validate.py .\skills\my-new-skill
+python .\scripts\generate_openai_yaml.py .\skills\my-new-skill --interface default_prompt="Use $my-new-skill to do the task."
+```
+
+See [docs/openai-yaml.md](docs/openai-yaml.md) for the local `agents/openai.yaml` rules.
+
 ---
 
 ## Skills
@@ -92,6 +104,8 @@ bash ./scripts/install-copilot.sh
 | `fab-api-bridge` | Use `fab api` for direct REST workflows |
 | `fab-acl-audit` | Inspect access and prepare safe ACL changes |
 | `fab-onelake-ops` | Work with OneLake files, folders, tables, and paths |
+| `fab-conventions` | Define, assess, and safely apply Fabric naming and architecture conventions |
+| `fab-workspace-architecture` | Design and assess a single-workspace Fabric architecture around one lakehouse and medallion layers |
 | `fab-workspace-organize` | Create folders, clean up legacy items, and organize workspace layouts safely |
 
 ---
