@@ -71,7 +71,7 @@ fab api "workspaces/<workspace-id>/folders" -X get
 - If a shorthand path such as `ws.<name>` fails with `InvalidPath`, fall back to the literal value returned by `fab dir`.
 - Path syntax can vary across `fab` versions, so treat `fab dir` output as the source of truth.
 - For folder-heavy workspace inspection, `fab config set folder_listing_enabled true` makes `fab dir` and `fab ls` show folders directly and reduces the need to switch to `fab api`.
-- If `fab get` fails with host-specific errors such as `No Windows console found. Are you running cmd.exe?`, use `fab api` rather than assuming the path is wrong.
+- If `fab get` fails with host-specific errors such as `No Windows console found. Are you running cmd.exe?`, treat it as an embedded-host compatibility issue first, not as proof that the path or auth state is wrong. The same command may still work in a normal local PowerShell, Windows Terminal, or `cmd.exe` session. Use `fab api` rather than assuming the path is wrong.
 - Folder paths can resolve inconsistently across `fab` commands. Verify folder operations carefully before depending on folder-contained item discovery for a larger workflow.
 
 Example:

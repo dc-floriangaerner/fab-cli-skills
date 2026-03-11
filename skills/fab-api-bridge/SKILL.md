@@ -15,9 +15,10 @@ Read [references/api-patterns.md](references/api-patterns.md) when the request n
 
 1. Prefer a first-class `fab` command when it exists and is adequate.
 2. Switch to `fab api` only when the CLI command surface is missing or too limited.
-3. Build the endpoint, method, params, headers, audience, and body explicitly.
-4. Inspect one raw response before locking in a `-q` expression, because `fab api` may wrap the payload.
-5. Summarize the request and the relevant response fields rather than dumping raw JSON unless the user asked for it.
+3. Use `fab api` deliberately when the task needs REST-only item metadata, folder metadata, or other fields that the first-class command surface does not expose reliably in the current host.
+4. Build the endpoint, method, params, headers, audience, and body explicitly.
+5. Inspect one raw response before locking in a `-q` expression, because `fab api` may wrap the payload.
+6. Summarize the request and the relevant response fields rather than dumping raw JSON unless the user asked for it.
 
 ## Response Shape Tip
 
@@ -46,6 +47,12 @@ GET with params and filtering:
 
 ```powershell
 fab api "workspaces" -X get -P "continuationToken=abc" -q "text.value[].{id:id,name:displayName}"
+```
+
+Inspect workspace items when `fab get` or folder-aware discovery is flaky in the current terminal host:
+
+```powershell
+fab api "workspaces/<workspace-id>/items" -X get -q "text.value[].{id:id,name:displayName,type:type}"
 ```
 
 POST with a JSON body:
@@ -80,6 +87,8 @@ python scripts/run_api_spec.py .\api-request.json --execute
 - If the endpoint mutates data, state that clearly before executing.
 - Prefer the spec helper for repeated or complex calls so the request is reviewable before execution.
 - When a JMESPath query unexpectedly returns `None`, retry against the wrapped payload shape, usually `text.value[...]`.
+- Do not treat `fab api` as a substitute for querying Delta table contents. It is best for Fabric item and workspace metadata, not for direct business-data validation inside Lakehouse tables.
+- If the user needs row counts, lane timing, or data-quality checks from loaded tables, prefer a notebook or SQL-based validation step over forcing `fab api` into that role.
 
 ## Reporting Style
 
@@ -96,3 +105,4 @@ python scripts/run_api_spec.py .\api-request.json --execute
 - Show the final `fab api` command with method, endpoint, and notable options.
 - Summarize the response shape and key fields in a compact visual structure.
 - If a first-class `fab` command would be better, say so and prefer it.
+- If `fab api` is still not the right surface for the requested validation, say so explicitly and recommend the better validation surface.

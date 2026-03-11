@@ -20,7 +20,8 @@ Read [references/path-patterns.md](references/path-patterns.md) when the task ne
 5. Do not infer Spark readiness from `Lakehouse/Tables/<schema>` alone; recommend verification from notebook or SQL endpoint perspective, or a schema bootstrap step, before declaring the target ready.
 6. If copying or moving data, inspect both source and destination first.
 7. Perform `copy`, `move`, `mklink`, `mkdir`, or `del` only after confirming the exact path.
-8. Re-list or re-check existence to verify the result.
+8. If Spark output lands as a folder with `_SUCCESS` plus `part-*.txt` or similar files, treat the folder as the output unit and then copy the exact part file you need rather than assuming a single flat file path.
+9. Re-list or re-check existence to verify the result.
 
 ## Commands
 
@@ -61,6 +62,13 @@ Inspect table schema when the task is table-oriented:
 fab table schema "ws.Workspace/lh.Lakehouse/Tables/silver/customers"
 ```
 
+Inspect a Spark text output folder before copying the payload file:
+
+```powershell
+fab dir "ws.Workspace/lh.Lakehouse/Files/validation/result.json" -l
+fab copy "ws.Workspace/lh.Lakehouse/Files/validation/result.json/part-00000-<id>.txt" ".\\result.txt" -f
+```
+
 Render a path operation from a JSON spec:
 
 ```powershell
@@ -82,6 +90,7 @@ python scripts/check_paths.py .\paths.json
 - Separate file workflows from table workflows. Use `fab table` subcommands when the resource is a Delta table rather than a plain file path.
 - Treat `Lakehouse/Tables/<schema>` as a directory-style signal only. It is not enough to prove that Spark can use `<schema>` in `saveAsTable` or SQL statements.
 - If the user is troubleshooting notebook writes and sees `SCHEMA_NOT_FOUND`, recommend notebook-side or SQL-endpoint schema verification, or a bootstrap step such as `CREATE SCHEMA IF NOT EXISTS bronze`, `silver`, and `gold`.
+- Spark text outputs written with `DataFrame.write.text(...)` usually appear as a folder containing `_SUCCESS` plus one or more `part-*.txt` files. Do not try to copy the folder as if it were a single text file.
 - Prefer rendering commands before executing copy, move, mklink, or delete operations in automation.
 
 ## Reporting Style
@@ -99,5 +108,6 @@ python scripts/check_paths.py .\paths.json
 - Show the resolved paths.
 - Note whether the relevant content was found under `Files` or `Tables`.
 - If the task also depends on Spark schemas, state clearly whether you verified only the path layer or also the Spark schema layer.
+- If the useful payload lives inside a Spark output folder, say that explicitly and report which `part-*` file you used.
 - State what existed before and after in a compact visual structure.
 - If a file or folder operation failed, report the exact path and the command attempted.
