@@ -49,10 +49,11 @@
   <tr>
     <td width="25%" valign="top"><a href="#setup"><strong>Setup</strong></a><br>Install, sign in, repair PATH</td>
     <td width="25%" valign="top"><a href="#discovery"><strong>Discovery</strong></a><br>Inspect workspaces and items</td>
+    <td width="25%" valign="top"><a href="#semantic-models"><strong>Semantic Models</strong></a><br>Improve and document models</td>
     <td width="25%" valign="top"><a href="#deployments"><strong>Deployments</strong></a><br>Promote safely between environments</td>
-    <td width="25%" valign="top"><a href="#jobs"><strong>Jobs</strong></a><br>Run, monitor, and explain failures</td>
   </tr>
   <tr>
+    <td width="25%" valign="top"><a href="#jobs"><strong>Jobs</strong></a><br>Run, monitor, and explain failures</td>
     <td width="25%" valign="top"><a href="#onelake"><strong>OneLake</strong></a><br>Inspect files, tables, and paths</td>
     <td width="25%" valign="top"><a href="#architecture"><strong>Architecture</strong></a><br>Design and audit single-workspace or per-stage layouts</td>
     <td width="25%" valign="top"><a href="#apis"><strong>APIs</strong></a><br>Bridge into REST workflows</td>
@@ -122,6 +123,38 @@ GitHub Copilot:
 
 ```text
 Use the /fab-discovery skill to inspect Test123.Workspace/nb_silver_customers.Notebook and tell me which fab commands are relevant.
+```
+
+---
+
+## Semantic Models
+
+### Improve an open Power BI Desktop model end-to-end
+
+Codex:
+
+```text
+Use $fab-semantic-model to connect to my open Power BI Desktop model through the Power BI Modeling MCP Server, improve the semantic model safely end-to-end, and return a Markdown documentation pack with rename mappings, hidden technical fields, measures created, hierarchy changes, and all skipped risky items.
+```
+
+GitHub Copilot:
+
+```text
+Use the /fab-semantic-model skill to connect to my open Power BI Desktop model through the Power BI Modeling MCP Server, improve the semantic model safely end-to-end, and return a Markdown documentation pack with rename mappings, hidden technical fields, measures created, hierarchy changes, and all skipped risky items.
+```
+
+### Review a Fabric semantic model before making changes
+
+Codex:
+
+```text
+Use $fab-semantic-model to connect to the semantic model Sales Analytics in workspace Analytics Dev through the Power BI Modeling MCP Server, assess star schema quality, naming, measures, folders, and descriptions, and separate safe direct fixes from risky recommendations before changing anything.
+```
+
+GitHub Copilot:
+
+```text
+Use the /fab-semantic-model skill to connect to the semantic model Sales Analytics in workspace Analytics Dev through the Power BI Modeling MCP Server, assess star schema quality, naming, measures, folders, and descriptions, and separate safe direct fixes from risky recommendations before changing anything.
 ```
 
 ---

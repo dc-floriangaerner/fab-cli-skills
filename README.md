@@ -116,6 +116,7 @@ bash ./scripts/install-copilot.sh
     <td width="50%" valign="top">
       <h3>Delivery and Design</h3>
       <p><code>fab-deploy</code> exports, imports, and promotes Fabric items safely.</p>
+      <p><code>fab-semantic-model</code> improves and documents Power BI or Fabric semantic models with a Power BI Modeling MCP Server-first workflow.</p>
       <p><code>fab-conventions</code> defines, assesses, and safely applies naming and architecture conventions.</p>
       <p><code>fab-workspace-architecture</code> designs and audits single-workspace or per-stage workspace patterns with medallion structure.</p>
       <p><code>fab-workspace-organize</code> creates folders, cleans legacy clutter, and organizes single-workspace or stage-based layouts safely.</p>
@@ -180,6 +181,7 @@ It includes copy-pasteable prompts for:
 
 - setup and login
 - workspace discovery
+- semantic model cleanup and documentation
 - deployments
 - jobs and monitoring
 - OneLake inspection
