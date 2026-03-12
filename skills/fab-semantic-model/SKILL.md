@@ -1,6 +1,6 @@
 ---
 name: fab-semantic-model
-description: Use this skill to inspect, improve, and document Microsoft Fabric or Power BI semantic models, especially when connecting through the Power BI Modeling MCP Server to Fabric, Power BI Desktop, or TMDL/PBIP sources and applying safe best practices for relationships, naming, measures, hierarchies, descriptions, and documentation.
+description: Use this skill to inspect, improve, create, and document Microsoft Fabric or Power BI semantic models, especially when using fab-cli to create or export a Fabric semantic model item, then connecting through the Power BI Modeling MCP Server to a local TMDL/PBIP definition folder or a live model and applying safe best practices for relationships, naming, measures, hierarchies, descriptions, and documentation.
 ---
 
 # Fab Semantic Model
@@ -29,27 +29,43 @@ Use `fab-discovery` only when you first need to discover the Fabric workspace or
 Prefer this connection order:
 
 1. open Power BI Desktop model on Windows when the user says the file is already open
-2. Fabric semantic model in a workspace when the user gives workspace and model names
-3. local TMDL or PBIP semantic-model folder when the user is working from source files
+2. local TMDL or PBIP semantic-model definition folder exported from Fabric with `fab`
+3. Fabric semantic model in a workspace when the user gives workspace and model names and a live connection is truly needed
 
 Use `connection_operations` to inspect available connections and connect through the correct path:
 
 - `ListLocalInstances` for open Desktop models
-- `ConnectFabric` for Fabric-hosted semantic models
 - `ConnectFolder` for TMDL or PBIP semantic-model definition folders
+- `ConnectFabric` for Fabric-hosted semantic models
 - `GetLastUsed` or `SetLastUsed` when continuing an existing modeling session
 
 When loading a PBIP project, connect only to the `.SemanticModel/definition` folder.
 
+For Fabric-hosted work, prefer `ConnectFolder` after a `fab export` because it avoids unnecessary live-session dependency and usually avoids interactive authentication prompts. Use `ConnectFabric` as the fallback or final-validation path when:
+
+- the semantic model already exists and no local export/import loop is needed
+- `fab export` does not produce a usable semantic-model definition
+- you must validate or inspect the final live item directly
+
+When `ConnectFabric` is used, expect that Fabric may open an interactive browser sign-in window. Treat this as normal rather than as a failure.
+
 ## Workflow
 
-1. Connect to the target model with the Power BI Modeling MCP Server.
-2. Inventory the current state with `model_operations`, `table_operations`, `column_operations`, `measure_operations`, `relationship_operations`, `user_hierarchy_operations`, `perspective_operations`, `security_role_operations`, `culture_operations`, `partition_operations`, `calendar_operations`, and `named_expression_operations` as needed.
-3. Split findings into:
+1. If the task is to create or rebuild a Fabric semantic model, create the semantic model item in Fabric first with `fab` rather than trying to create the item through the MCP server.
+2. For Fabric-hosted work, prefer this loop:
+   - create a minimal semantic model item with `fab`
+   - export the semantic model locally with `fab export`
+   - connect the MCP server to the exported `.SemanticModel/definition` folder with `ConnectFolder`
+   - model locally through the MCP server
+   - re-import the semantic model with `fab import`
+   - use `ConnectFabric` only if final live validation is needed
+3. If the task is an existing live model cleanup with no export/import loop, connect to the target model with the Power BI Modeling MCP Server.
+4. Inventory the current state with `model_operations`, `table_operations`, `column_operations`, `measure_operations`, `relationship_operations`, `user_hierarchy_operations`, `perspective_operations`, `security_role_operations`, `culture_operations`, `partition_operations`, `calendar_operations`, and `named_expression_operations` as needed.
+5. Split findings into:
    - safe direct changes
    - ambiguous or risky items that should be skipped and documented
-4. For multi-object edits, prefer a transaction or a tightly grouped sequence so partial updates are minimized.
-5. Apply changes in this order unless the request calls for a narrower scope:
+6. For multi-object edits, prefer a transaction or a tightly grouped sequence so partial updates are minimized.
+7. Apply changes in this order unless the request calls for a narrower scope:
    - relationships and star-schema cleanup
    - safe naming cleanup
    - hide technical fields
@@ -59,9 +75,18 @@ When loading a PBIP project, connect only to the `.SemanticModel/definition` fol
    - hierarchies
    - descriptions
    - Markdown documentation
-6. Re-read the affected objects after each major change area.
-7. Validate measure expressions with `measure_operations`, `function_operations`, and `dax_query_operations` when the logic changed materially.
-8. End with a consolidated summary of changes, skips, assumptions, and follow-up advice.
+8. Re-read the affected objects after each major change area.
+9. For a newly created Direct Lake model, run the first model refresh before DAX validation because queries can fail until the model has been refreshed at least once.
+10. Validate measure expressions with `measure_operations`, `function_operations`, and `dax_query_operations` when the logic changed materially.
+11. End with a consolidated summary of changes, skips, assumptions, and follow-up advice.
+
+## Fabric Item Guidance
+
+- Treat the Fabric item and the internal semantic model as related but distinct layers.
+- Use `fab` to create the semantic model item and to rename the workspace-facing display name.
+- Use the MCP server to model tables, columns, measures, hierarchies, relationships, and model metadata.
+- Do not rely on MCP model rename operations alone to rename the Fabric item shown in the workspace.
+- When the user wants a cleaner business-facing name, apply the final display-name rename with `fab set <path> -q displayName -i <new-name>`.
 
 ## Modeling Rules
 

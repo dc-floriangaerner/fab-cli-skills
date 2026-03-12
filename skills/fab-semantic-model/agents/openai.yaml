@@ -1,4 +1,4 @@
 interface:
   display_name: "Fab Semantic Model"
   short_description: "Improve and document semantic models"
-  default_prompt: "Use $fab-semantic-model to connect through the Power BI Modeling MCP Server, improve a Fabric or Power BI semantic model safely, and return a concise change log plus model documentation."
+  default_prompt: "Use $fab-semantic-model to create or export a Fabric semantic model with fab-cli, edit the definition through the Power BI Modeling MCP Server, safely improve the model, and return a concise change log plus model documentation."
